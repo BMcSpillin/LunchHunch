@@ -1,26 +1,5 @@
-Idiom translator/dictionary
-Less democratic, more defined than Urban Dictionary
-Better design
-
-Jargon Glossary for Developers
-Using web scraping
-
-Productivity App/Game
-Scores when you're not wasting time
-Data visualization
-User profiles
-Gamification
-This doesn't block you, it scores you
-
-Drive/Public map combo
-
-Mad Libs with rhyming dictionary API
-
-Gif/Meme Pocket
-
-Time to Kill App
-
 What's for lunch?
+GOAL: To make a decision for an indecisive user with a short lunch break and a big appetite
 
 research:
 wtfsigte.com
@@ -28,19 +7,48 @@ Yelp! without the reviews and the indecision
 Tinder for food
 
 MVP
-Populate a Menu
-Location-based
-Determine by Distance
-FlowChart: if then question series: YES/NO 
-(Different questions to the user, same question answered for us)
-Walking or driving?
-How far?
-Location?
+*****INPUT*****
+USER
+-Location-based
+-Populate a Menu
+-Data collection
+  -Consistent user data
+    -allergies/dietary restrictions
+    -preferences
+    -distance to travel
+    -Location
+  -Daily changing user data
+    -Walking or driving?
+    -How far?
+    -weather
+    -mood
+    -exercise
+    -eat-in or take-out
+WEB
+-Get local restaurants
+-Scrape menus (and maybe reviews)
 
+
+*****OUTPUT*****
+To match user data with information collected from the web
+To select one restaurant that meets their needs
+
+
+
+
+*****FUTURE GOALS*****
 Medium Forward
-USER MODEL: Save allergies
-Add Weather factor
+  -Have weather respond to API rather than question
+  -Get current location using GPS
 
 Future Forward
-USER: Save former likes
-USER: Save recently eaten lunches
+  Save former "likes"
+  Save recently eaten lunches
+  Pare down menu for user preferences
+
+
+APIs of use
+
+Hoppit
+Yelp!
+Google Maps
