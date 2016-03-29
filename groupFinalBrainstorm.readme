@@ -12,22 +12,30 @@ USER
 -Location-based
 -Populate a Menu
 -Data collection
-  -Consistent user data
-    -allergies/dietary restrictions
-    -preferences
     -distance to travel
     -Location
+    -WE ASSUME <= 1 mile
   -Daily changing user data
-    -Walking or driving?
-    -How far?
     -weather
     -mood
     -exercise
     -eat-in or take-out
+    -price
+    -spiciness (frisky?)
+
+location: string
+mood: boolean
+weather:
+healthfulness: 
+
+
+
 WEB
 -Get local restaurants
 -Scrape menus (and maybe reviews)
 
+
+MAYBE JUST PICK A SINGLE PLACE FOR PRESENTATION
 
 *****OUTPUT*****
 To match user data with information collected from the web
@@ -40,15 +48,57 @@ To select one restaurant that meets their needs
 Medium Forward
   -Have weather respond to API rather than question
   -Get current location using GPS
+  -Walking or driving?
+  -How far?
 
 Future Forward
+  -Consistent user profile data
+    -allergies/dietary restrictions
+    -preferences (general and comfort food)
   Save former "likes"
   Save recently eaten lunches
   Pare down menu for user preferences
+  Machine learning <---way future forward
 
+  ALGORITHM
 
 APIs of use
 
 Hoppit
 Yelp!
 Google Maps
+
+
+
+location services
+api
+explicit user model and views
+
+allergy
+mood
+weather
+(pick one)
+
+What to include/exclude from the API
+
+###ONBOARDING
+Getting people to sign up... process
+
+1. User hits homepage
+2. Acquire user location (GPS API or input)
+  a) Array contains all food categories
+3. Allergies? a) b) c) d) e)
+  a) contains all options less allergies
+4. Weather a) sweaty b) brr
+  a) keep salad, wraps, subs etc.
+  b) keep soup, ramen, American...
+5. Are you happy today? a) Sure / b) Meh
+  a) Array hasn't changed
+  b) Array contains only comfort food
+    -we have made assumptions and hard coded this
+6. Healthy food?
+  a)
+  b)
+7. In debt? Rich?  How deep are your pockets? a) money b) broke
+  a)
+  b)
