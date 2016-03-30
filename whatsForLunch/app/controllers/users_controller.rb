@@ -5,6 +5,10 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+    @current_user = User.create
+    # @current_user = User.create(id: session[:id])
+    puts session[:session_id]
+    puts "okok"
   end
 
   # GET /users/1
@@ -71,4 +75,5 @@ class UsersController < ApplicationController
     def user_params
       params.fetch(:user, {})
     end
+
 end
