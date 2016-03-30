@@ -1,0 +1,5 @@
+How's the weather?  Hot? Cold?<br />
+
+<%= link_to "Hot", questionSpicy_path(:weather => true), :method => :post, remote: true %>
+
+<%= link_to "Cold", questionSpicy_path(:weather => false), :method => :post, remote: true %>
