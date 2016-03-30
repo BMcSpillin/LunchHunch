@@ -13,4 +13,10 @@ class ApplicationController < ActionController::Base
 
 #***params[:term] I guess will be equal
 #to whatever array we wind up with?
+
+  def current_user
+    return unless session[:user_id]
+    @current_user ||= User.where(session[:user_id]).first
+  end
+
 end

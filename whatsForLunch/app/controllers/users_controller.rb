@@ -4,13 +4,13 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
-    https://api.yelp.com/v2/search/?term=#{@user.}&location=#{@user.location}&limit=1&radius_filter=900
+    session[:user_id]
   end
 
   # GET /users/new
