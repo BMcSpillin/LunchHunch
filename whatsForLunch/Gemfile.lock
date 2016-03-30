@@ -47,7 +47,7 @@ GEM
     coffee-script (2.4.1)
       coffee-script-source
       execjs
-    coffee-script-source (1.10.0)
+    coffee-script-source (1.8.0)
     concurrent-ruby (1.0.1)
     debug_inspector (0.0.2)
     erubis (2.7.0)
@@ -146,6 +146,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
+  coffee-script-source (= 1.8.0)
   jbuilder (~> 2.0)
   jquery-rails
   rails (= 4.2.5.2)

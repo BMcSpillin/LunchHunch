@@ -1,0 +1,5 @@
+How are things?<br />
+
+<%= link_to "Good", questionWeather_path(:mood => true), :method => :post, remote: true %>
+
+<%= link_to "Bad", questionWeather_path(:mood => false), :method => :post, remote: true %>
