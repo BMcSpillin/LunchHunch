@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
 
-  post 'questions' => "questions#first", as: :questionOne
-  post 'questions/second' => "questions#second", as: :questionTwo
-  post 'questions/third' => "questions#third", as: :questionThree
-  
+  post 'questions' => "questions#first_location", as: :getLocation
+  post 'questions/2' => "questions#second_allergies", as: :questionAllergies
+  post 'questions/3' => "questions#third_mood", as: :questionMood
+  post 'questions/4' => "questions#fourth_weather", as: :questionWeather
+  post 'questions/5' => "questions#fifth_spicy", as: :questionSpicy
+  post 'questions/6' => "questions#sixth_healthy", as: :questionHealthy
+  post 'questions/7' => "questions#seventh_price", as: :questionPrice
+  post 'choicefortoday' => "questions#result", as: :choiceForToday
+
   resources :users
   resources :questions
 

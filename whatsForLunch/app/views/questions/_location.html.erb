@@ -1,0 +1,9 @@
+Now your location is being collected by this app.<br />
+Dispaly the first question - allergies<br />
+
+Mutiple Choices<br />
+<%= link_to "Peanut", questionMood_path(:allergies => "something1"), :method => :post, remote: true %>
+
+<%= link_to "Seafood", questionMood_path(:allergies => "something2"), :method => :post, remote: true %>
+
+<%= link_to "Honey", questionMood_path(:allergies => "something3"), :method => :post, remote: true %>

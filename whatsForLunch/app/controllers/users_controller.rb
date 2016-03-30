@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
+    @users = User.all
 
   end
 
@@ -72,4 +73,5 @@ class UsersController < ApplicationController
     def user_params
       params.fetch(:user, {})
     end
+
 end
