@@ -99,6 +99,19 @@ Getting people to sign up... process
 6. Healthy food?
   a)
   b)
-7. In debt? Rich?  How deep are your pockets? a) money b) broke
+7. Spiciness 
+  a) spicy
+  b) mild
+8. In debt? Rich?  How deep are your pockets? a) money b) broke
   a)
   b)
+
+COLUMNS
+location: string
+allergies: string
+weather: boolean
+
+happy: boolean
+healthy: boolean
+spicy: boolean
+debt: boolean
