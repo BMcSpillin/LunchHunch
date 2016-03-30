@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    https://api.yelp.com/v2/search/?term=#{@user.}&location=#{@user.location}&limit=1&radius_filter=900
   end
 
   # GET /users/new
