@@ -7,4 +7,14 @@ class ApplicationController < ActionController::Base
     return unless session[:user_id]
     @current_user ||= User.where(session[:user_id]).first
   end
+
+    def remote_ip
+    if request.remote_ip == '127.0.0.1'
+      # Hard coded remote address
+      '123.45.67.89'
+    else
+      request.remote_ip
+    end
+end
+ 
 end
