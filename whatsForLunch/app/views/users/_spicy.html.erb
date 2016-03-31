@@ -1,0 +1,11 @@
+<div class="question">
+	You feeling frisky, hot stuff?<br />
+</div>
+<div class="answer">
+	<div class="two-choices">
+		<%= link_to "Bring it on", questionHealthy_path(:spicy => true), :method => :post, remote: true %>
+	</div>
+	<div class="two-choices">
+		<%= link_to "Keep it mild", questionHealthy_path(:spicy => false), :method => :post, remote: true %>
+	</div>
+</div>
