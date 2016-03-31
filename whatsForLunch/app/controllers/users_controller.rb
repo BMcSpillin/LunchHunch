@@ -76,6 +76,7 @@ class UsersController < ApplicationController
     end
   end
 
+
   def pass_location
   end
 
@@ -139,5 +140,13 @@ class UsersController < ApplicationController
     # respond_to do |format|
     #     format.js
     # end
+  def choiceForToday
+    @user = User.where(id: session[:user_id]).first
+
+    redirect_to results_path
+  end
+
+  def show
+    @user = User.where(id: session[:user_id]).first
   end
 end

@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20160331210249) do
     t.float    "longitude"
     t.string   "ip_address"
     t.text     "food_arr"
+
   end
 
 end
