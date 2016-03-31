@@ -4,12 +4,17 @@ class QuestionsController < ApplicationController
 	def first_location
 		@new_user = User.create
 		session[:user_id] = @new_user.id
-
+		puts "Hello"
 		respond_to do |format|
 			format.js
 		end
 	end
 
+	def getUserLocation
+		respond_to do |format|
+			format.js
+		end
+	end
 	# def second_allergies
 
 	# 	respond_to do |format|

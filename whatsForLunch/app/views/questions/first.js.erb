@@ -1,21 +1,24 @@
-console.log("Here")
-$.ajax({
-	url: "<%= getUserLocation_path %>",
-	type: 'post',
-	format: 'js.erb',
+console.log("something else here 2")
+
+
+$.post(
+	url: "questions/getUserLocation",
+	data: {},
 
 	success: function(){
-		console.log("Yes")
-		$(".question").html('<%= j render("location") %>');
+		console.log("It worked")
 	},
+
 	error: function(){
-		console.log("No")
+		console.log("It didn't")
 	}
+	)
 
-})
+console.log("something else here")
 
-console.log("After ajax")
-var x = document.getElementById(".question");
+// $(".question").html('<%= j render("mood") %>').after(console.log("Okie dokie"));
+
+var x = document.getElementById("demo");
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -23,9 +26,7 @@ function getLocation() {
         x.innerHTML = "Geolocation is not supported by this browser.";
     }
 }
-function showPosition(positions) {
+function showPosition(position) {
     x.innerHTML = "Latitude: " + position.coords.latitude + 
     "<br>Longitude: " + position.coords.longitude; 
 }
-
-$(".question").html('<%= j render("location") %>');

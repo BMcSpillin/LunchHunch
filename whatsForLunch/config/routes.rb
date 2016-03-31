@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  post 'questions/getUserLocation' => "questions#getUserLocation", as: :getUserLocation
   post 'questions' => "questions#first_location", as: :getLocation
   post 'questions/2' => "questions#second_allergies", as: :questionAllergies
   post 'questions/3' => "questions#third_mood", as: :questionMood
@@ -8,9 +9,9 @@ Rails.application.routes.draw do
   post 'questions/6' => "questions#sixth_healthy", as: :questionHealthy
   post 'questions/7' => "questions#seventh_price", as: :questionPrice
   post 'choicefortoday' => "questions#result", as: :choiceForToday
-
+  
   resources :users
-  resources :questions
+  resources :questions, defaults: { format: 'js.erb' }
 
 
   root 'users#index'
