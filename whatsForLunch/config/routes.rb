@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
 
-  post 'users' => "users#first_location", as: :getLocation
-  post 'users/2' => "users#second_allergies", as: :questionAllergies
-  post 'users/3' => "users#third_mood", as: :questionMood
-  post 'users/4' => "users#fourth_weather", as: :questionWeather
-  post 'users/5' => "users#fifth_spicy", as: :questionSpicy
-  post 'users/6' => "users#sixth_healthy", as: :questionHealthy
-  post 'users/7' => "users#seventh_price", as: :questionPrice
+  post 'questions/1' => "users#first_location", as: :getLocation
+  post 'questions/2' => "users#second_allergies", as: :questionAllergies
+  post 'questions/3' => "users#third_mood", as: :questionMood
+  post 'questions/4' => "users#fourth_weather", as: :questionWeather
+  post 'questions/5' => "users#fifth_spicy", as: :questionSpicy
+  post 'questions/6' => "users#sixth_healthy", as: :questionHealthy
+  post 'questions/7' => "users#seventh_price", as: :questionPrice
   post 'choicefortoday' => "users#result", as: :choiceForToday
 
   resources :users
