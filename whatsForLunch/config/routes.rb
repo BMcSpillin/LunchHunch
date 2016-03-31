@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   post 'users/7' => "users#seventh_price", as: :questionPrice
   post 'choicefortoday' => "users#result", as: :choiceForToday
 
-  resources :users
 
   root 'users#index'
 

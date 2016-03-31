@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
   
+  def index
+  end
+
   def first_location
     @new_user = User.create
     session[:user_id] = @new_user.id
@@ -9,12 +12,12 @@ class UsersController < ApplicationController
     end
   end
 
-  # def second_allergies
+  def second_allergies
 
-  #   respond_to do |format|
-  #     format.js
-  #   end
-  # end
+    respond_to do |format|
+      format.js
+    end
+  end
 
   def third_mood
     @user = User.where(id: session[:user_id]).first
