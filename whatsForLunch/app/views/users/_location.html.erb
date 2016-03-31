@@ -1,0 +1,16 @@
+<div class="question">
+	Now your location is being collected by this app.<br />
+	<p id="current_location"></p><br />
+	Are you allergic to any of these?<br />
+</div>
+<div class="answer">
+	<div class="three-choices">
+		<%= link_to "Peanut", questionMood_path(:allergies => "something1"), :method => :post, id: 'three-choices', remote: true %>
+	</div>
+	<div class="three-choices">
+		<%= link_to "Shellfish", questionMood_path(:allergies => "something2"), :method => :post, id: 'three-choices', remote: true %>
+	</div>
+	<div class="three-choices">
+	<%= link_to "Milk", questionMood_path(:allergies => "something3"), :method => :post, id: 'three-choices', remote: true %>
+	</div>
+</div>

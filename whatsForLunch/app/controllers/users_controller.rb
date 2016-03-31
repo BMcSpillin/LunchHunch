@@ -1,77 +1,70 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-
-  # GET /users
-  # GET /users.json
-  def index
-    @users = User.all
-
-  end
-
-  # GET /users/1
-  # GET /users/1.json
-  def show
-    session[:user_id]
-  end
-
-  # GET /users/new
-  def new
-    @user = User.new
-  end
-
-  # GET /users/1/edit
-  def edit
-  end
-
-  # POST /users
-  # POST /users.json
-  def create
-    @user = User.new(user_params)
+  
+  def first_location
+    @new_user = User.create
+    session[:user_id] = @new_user.id
 
     respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+      format.js
     end
   end
 
-  # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
-  def update
+  # def second_allergies
+
+  #   respond_to do |format|
+  #     format.js
+  #   end
+  # end
+
+  def third_mood
+    @user = User.where(id: session[:user_id]).first
+    @user.update(allergies: params[:allergies])
+    # Update current location to the current user
+    @user.update(latitude: 40.708287)
+    @user.update(longitude: -74.00653129999999)
+    # @user.update(location: )
+
+
+
     respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+      format.js
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
-  def destroy
-    @user.destroy
+  def fourth_weather
+    @user = User.where(id: session[:user_id]).first
+    @user.update(mood: params[:mood])
+
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
+      format.js
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
+  def fifth_spicy
+    @user = User.where(id: session[:user_id]).first
+    @user.update(weather: params[:weather])
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.fetch(:user, {})
+    respond_to do |format|
+      format.js
     end
+  end
+
+  def sixth_healthy
+    @user = User.where(id: session[:user_id]).first
+    @user.update(spicy: params[:spicy])
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def seventh_price
+    @user = User.where(id: session[:user_id]).first
+    @user.update(healthy: params[:healthy])
+
+    respond_to do |format|
+      format.js
+    end
+  end
 
 end
