@@ -2,10 +2,11 @@
 	How deep are your pockets?<br />
 </div>
 <div class="answer">
-	<div class="two-choices">
-		<%= link_to "Deep enough", choiceForToday_path(:price => true), :method => :post, remote: true %>
+	<div class="two-choices" class="locationCall">
+		<%= link_to "Deep enough", choiceForToday_path(:price => true), :method => :post %>
 	</div>
-	<div class="two-choices">
-		<%= link_to "I'm broke", choiceForToday_path(:price => false), :method => :post, remote: true %>
+	<div class="two-choices" class="locationCall">
+		<%= link_to "I'm broke", choiceForToday_path(:price => false), :method => :post %>
 	</div>
 </div>
+<!-- ChoiceforToday path set to test array modifications -->
