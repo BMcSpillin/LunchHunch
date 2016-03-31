@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   post 'questions/5' => "users#fifth_spicy", as: :questionSpicy
   post 'questions/6' => "users#sixth_healthy", as: :questionHealthy
   post 'questions/7' => "users#seventh_price", as: :questionPrice
+  post 'questions/location' => "users#location", as: :location
+  post 'users/pass' => "users#pass_location", as: :pass_location
   post 'choiceForToday' => "users#result", as: :choiceForToday
   get 'result' => "users#show", as: :whatsForLunch
 
