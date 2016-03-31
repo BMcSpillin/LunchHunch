@@ -8,7 +8,9 @@ class UsersController < ApplicationController
     session[:user_id] = @new_user.id
 
     respond_to do |format|
-      format.js
+      # format.html { render(:text =>"not implemented")}
+      format.js 
+      # format.html { render :partial => 'location'}
     end
   end
 

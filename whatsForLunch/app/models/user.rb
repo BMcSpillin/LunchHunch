@@ -1,10 +1,8 @@
 class User < ActiveRecord::Base
 	# attr_accessible :location, :latitude, :longitude
 
-# geocoded_by :ip_address,
-#   :latitude => :latitude, :longitude => :longitude
-# after_validation :geocode
-
+	# reverse_geocoded_by :latitude, :longitude => :location
+	# after_validation :reverse_geocode
 	# # @user.location = @user.city + ", " + @user.country
 end
 
