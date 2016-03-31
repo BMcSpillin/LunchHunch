@@ -69,4 +69,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def choiceForToday
+    @user = User.where(id: session[:user_id]).first
+
+    redirect_to results_path
+  end
+
+  def result
+    @user = User.where(id: session[:user_id]).first
+  end
+
+  def show
+    @user = User.where(id: session[:user_id]).first
+  end
 end
