@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20160330212740) do
     t.datetime "updated_at", null: false
     t.float    "latitude"
     t.float    "longitude"
+    t.string   "ip_address"
   end
 
 end

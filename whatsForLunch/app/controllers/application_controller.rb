@@ -6,10 +6,10 @@ class ApplicationController < ActionController::Base
 #below is suggested to be in HomeController... do we want
 #it here, or in UserController?
 
-  # def search
-  #   parameters = { term: params[:term], limit: 1 }
-  #   render json: Yelp.client.search(‘//location//’, parameters)
-  # end
+  def search
+    parameters = { user: params[:user], limit: 1 }
+    render json: Yelp.client.search(‘//location//’, parameters)
+  end
 
 #***params[:term] I guess will be equal
 #to whatever array we wind up with?
