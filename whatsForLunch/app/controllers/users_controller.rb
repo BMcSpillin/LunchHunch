@@ -76,21 +76,20 @@ class UsersController < ApplicationController
     end
   end
 
-
   def pass_location
   end
 
   def result
-  @user = User.where(id: session[:user_id]).first
-  @user.food_arr = ["Chinese", 'Pizza', "Fast Food", "Italian", "Latin American", "Burgers", "Sandwiches", "Salad", "Korean", "Mexican", "Japanese", "Delis", "Indian", "Sushi Bars", "American", "Caribbean", "Diners", "Seafood", "Thai", "Asian Fusion", "Barbeque", "Mediterranean", "Buffets", "Cheesesteaks", "Chicken Wings", "Comfort Food", "Dumplings", "Fish & Chips", "Food Stands", "Gastropubs", "Hot Dogs", "Soul Food", "Soup", "Tex-Mex", "Waffles"]
+    @user = User.where(id: session[:user_id]).first
+    @user.food_arr = ["Chinese", 'Pizza', "Fast Food", "Italian", "Latin American", "Burgers", "Sandwiches", "Salad", "Korean", "Mexican", "Japanese", "Delis", "Indian", "Sushi Bars", "American", "Caribbean", "Diners", "Seafood", "Thai", "Asian Fusion", "Barbeque", "Mediterranean", "Buffets", "Cheesesteaks", "Chicken Wings", "Comfort Food", "Dumplings", "Fish & Chips", "Food Stands", "Gastropubs", "Hot Dogs", "Soul Food", "Soup", "Tex-Mex", "Waffles"]
 
     if @user.mood == false
       #mood is bad(false), get rid of non-comfort foods
 
-      happy_slice = ["Latin American", "Sandwiches", "Korean", "Latin American", "Mexican", "Japanese", "Korean","Delis", "Indian", "Sushi Bars" "Caribbean", "Indian", "Seafood", "Thai", "Asian Fusion", "Mediterranean", "Salad", "Food Stands", "Hot Dogs", "Soup", "Tex-Mex"]
+      happy_slice = ["Latin American", "Sandwiches", "Korean", "Latin American", "Mexican", "Japanese", "Korean", "Delis", "Indian", "Sushi Bars" "Caribbean", "Indian", "Seafood", "Thai", "Asian Fusion", "Mediterranean", "Salad", "Food Stands", "Hot Dogs", "Soup", "Tex-Mex"]
 
       happy_slice.each do |del|
-      @user.food_arr.delete_at(@user.food_arr.index(del)) if @user.food_arr.index(del)
+        @user.food_arr.delete_at(@user.food_arr.index(del)) if @user.food_arr.index(del)
       end
     end
 
@@ -99,7 +98,7 @@ class UsersController < ApplicationController
       health_slice = ["Pizza", "Fast Food", "Diners", "Barbeque", "Burgers", "Chinese", "Buffets", "Cheesesteaks", "Chicken Wings", "Comfort Food", "Food Stands", "Gastropubs", "Hot Dogs", "Soul Food", "Tex-Mex", "Waffles", "Fish & Chips"]
 
       health_slice.each do |del|
-      @user.food_arr.delete_at(@user.food_arr.index(del)) if @user.food_arr.index(del)
+        @user.food_arr.delete_at(@user.food_arr.index(del)) if @user.food_arr.index(del)
       end
     end
 
@@ -108,38 +107,41 @@ class UsersController < ApplicationController
       hot_slice = ["Diners", "Barbeque", "Chinese", "Buffets", "Cheesesteaks", "Chicken Wings", "Food Stands", "Soul Food", "Soup", "Tex-Mex", "Waffles"]
 
       hot_slice.each do |del|
-      @user.food_arr.delete_at(@user.food_arr.index(del)) if @user.food_arr.index(del)
+        @user.food_arr.delete_at(@user.food_arr.index(del)) if @user.food_arr.index(del)
       end
     else #remove cold options if weather is cold
       cold_slice = ["Sandwiches", "Salad", "Sushi Bars","Food Stands"]
 
       cold_slice.each do |del|
-      @user.food_arr.delete_at(@user.food_arr.index(del)) if @user.food_arr.index(del)
+        @user.food_arr.delete_at(@user.food_arr.index(del)) if @user.food_arr.index(del)
       end
     end
 
-      if @user.spicy == true
-        #remove unspicy options
-        unspice_slice = ['Pizza', "Fast Food", "Italian", "Burgers", "Salad", "Japanese", "Delis", "Sushi Bars", "American", "Seafood", "Buffets", "Cheesesteaks", "Comfort Food", "Dumplings", "Fish & Chips", "Hot Dogs", "Soup", "Waffles", "Sandwiches"]
+    if @user.spicy == true
+      #remove unspicy options
+      unspice_slice = ['Pizza', "Fast Food", "Italian", "Burgers", "Salad", "Japanese", "Delis", "Sushi Bars", "American", "Seafood", "Buffets", "Cheesesteaks", "Comfort Food", "Dumplings", "Fish & Chips", "Hot Dogs", "Soup", "Waffles", "Sandwiches"]
 
-        unspice_slice.each do |del|
+      unspice_slice.each do |del|
         @user.food_arr.delete_at(@user.food_arr.index(del)) if @user.food_arr.index(del)
-        end
-        else #remove spicy food
-        spice_slice = ["Latin American", "Mexican", "Indian", "Caribbean", "Thai", "Tex-Mex"]
-
-        spice_slice.each do |del|
-        @user.food_arr.delete_at(@user.food_arr.index(del)) if @user.food_arr.index(del)
-        end
       end
+    else #remove spicy food
+      spice_slice = ["Latin American", "Mexican", "Indian", "Caribbean", "Thai", "Tex-Mex"]
 
-  puts @user.food_arr
+      spice_slice.each do |del|
+        @user.food_arr.delete_at(@user.food_arr.index(del)) if @user.food_arr.index(del)
+      end
+    end
+
+    puts @user.food_arr
   end
+
   def location
 
     # respond_to do |format|
     #     format.js
     # end
+  end
+
   def choiceForToday
     @user = User.where(id: session[:user_id]).first
 
@@ -149,4 +151,23 @@ class UsersController < ApplicationController
   def show
     @user = User.where(id: session[:user_id]).first
   end
+  #below is suggested to be in HomeController... do we want
+#it here, or in UserController?
+
+  def search
+    @terms = @user.food_arr.to_s
+    parameters = {
+      term: @terms, #check this out (STRING, OPTIONAL)
+      limit: 1,
+      radius_filter: 900 #measured in meters. 900m >=~ .5 mile
+      category_filter: "food",
+      cll: @user.latitude,@user.longitude,
+      #above seems to require data type "double"... let's see if "float" works.
+       }
+    render json: Yelp.client.search(‘@user.location’, parameters)
+  end
+
+#***params[:term] I guess will be equal
+#to whatever array we wind up with?
+
 end
