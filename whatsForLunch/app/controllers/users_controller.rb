@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  
+
   def first_location
     @new_user = User.create
     session[:user_id] = @new_user.id
