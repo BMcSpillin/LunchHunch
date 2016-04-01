@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   def index
   end
 
-  def first_location
+  def first_location_second_restriction
     @new_user = User.create
     session[:user_id] = @new_user.id
 
@@ -11,15 +11,9 @@ class UsersController < ApplicationController
     end
   end
 
-  # def second_allergies
-  #   respond_to do |format|
-  #     format.js
-  #   end
-  # end
-
   def third_mood
     @user = User.where(id: session[:user_id]).first
-    @user.update(allergies: params[:allergies])
+    @user.update(restriction: params[:restriction])
     # Update current location to the current user
     @user.update(latitude: 40.708287)
     @user.update(longitude: -74.00653129999999)
@@ -100,7 +94,7 @@ class UsersController < ApplicationController
       hot_slice = ["Diners", "Barbeque", "Chinese", "Buffets", "Cheesesteaks", "Chicken Wings", "Food Stands", "Soul Food", "Soup", "Tex-Mex", "Waffles"]
 
       hot_slice.each do |del|
-        food_arr.delete_at(food_arr.index(del)) if food_arr.index(del)
+      food_arr.delete_at(food_arr.index(del)) if food_arr.index(del)
       end
     else # Otherwise, remove cold food options when weather is cold
       cold_slice = ["Sandwiches", "Salad", "Sushi Bars","Food Stands"]
@@ -119,19 +113,63 @@ class UsersController < ApplicationController
         food_arr.delete_at(food_arr.index(del)) if food_arr.index(del)
       end
     else # Remove spicy food options
-      spice_slice = ["Latin American", "Mexican", "Indian", "Caribbean", "Thai", "Tex-Mex"]
+        spice_slice = ["Latin American", "Mexican", "Indian", "Caribbean", "Thai", "Tex-Mex"]
 
-      spice_slice.each do |del|
+        spice_slice.each do |del|
         food_arr.delete_at(food_arr.index(del)) if food_arr.index(del)
-      end
+        end
     end
 
     @user.update(food_arr: food_arr)
 
+    # Return results
+    if @user.mood == true
+      @mood = "We know you're feeling great today "
+    else
+      @mood = "We know things are not going so well so far..."
+    end
+
+    if @user.weather == true
+      @weather = "and it's high temperature out there. "
+    else
+      @weather = "and it's cold outside. "
+    end
+
+    if @user.healthy == true
+      @healthy = "You said you wanted to eat healthy "
+    else
+      @healthy = "You said you are not particulary in healthy food "
+    end
+
+    if @user.spicy == true
+      @spicy = "and we gotchu, hot, spicy food. "
+    else
+      @spicy = "and we gotchu, no spicy food. "
+    end
+
+    if @user.price == true
+      @price = "Money-wise, money isn't a factor to your choice..."
+    else
+      @price = "Money-wise, keep the budget low. "
+    end
+
+    if @user.restriction == "kosher"
+      @restriction = "And thanks for letting us know you eat Kosher."
+    elsif @user.restriction == "vegetarian"
+      @restriction = "And thanks for letting us know you are a vegetarian."
+    else
+      @restriction = ""
+    end
+
+    respond_to do |format|
+      format.js
+    end
+
   end
 
-  def show
-    @user = User.where(id: session[:user_id]).first
+  def search
+    parameters = { term: params[:term], limit: 16 }
+    render json: Yelp.client.search(‘San Francisco’, parameters)
   end
 
 end

@@ -11,26 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160331210249) do
-
-  create_table "questions", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 20160401193206) do
 
   create_table "users", force: :cascade do |t|
     t.string   "location"
-    t.string   "allergies"
     t.boolean  "weather"
     t.boolean  "mood"
     t.boolean  "healthy"
     t.boolean  "spicy"
     t.boolean  "price"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.float    "latitude"
     t.float    "longitude"
     t.text     "food_arr"
+    t.string   "restriction"
   end
 
 end
