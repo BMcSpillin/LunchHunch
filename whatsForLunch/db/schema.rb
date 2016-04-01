@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160330222805) do
+ActiveRecord::Schema.define(version: 20160331210249) do
 
   create_table "questions", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20160330222805) do
     t.datetime "updated_at", null: false
     t.float    "latitude"
     t.float    "longitude"
+    t.text     "food_arr"
   end
 
 end
