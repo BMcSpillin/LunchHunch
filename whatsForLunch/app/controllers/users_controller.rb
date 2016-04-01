@@ -75,6 +75,7 @@ class UsersController < ApplicationController
       non_comfort_slice.each do |del|
         food_arr.delete_at(food_arr.index(del)) if food_arr.index(del)
       end
+
     end
 
     if @user.healthy == true
@@ -94,13 +95,13 @@ class UsersController < ApplicationController
       hot_slice = ["Diners", "Barbeque", "Chinese", "Buffets", "Cheesesteaks", "Chicken Wings", "Food Stands", "Soul Food", "Soup", "Tex-Mex", "Waffles"]
 
       hot_slice.each do |del|
-      food_arr.delete_at(food_arr.index(del)) if food_arr.index(del)
+        food_arr.delete_at(food_arr.index(del)) if food_arr.index(del)
       end
     else # Otherwise, remove cold food options when weather is cold
       cold_slice = ["Sandwiches", "Salad", "Sushi Bars","Food Stands"]
 
       cold_slice.each do |del|
-      food_arr.delete_at(food_arr.index(del)) if food_arr.index(del)
+        food_arr.delete_at(food_arr.index(del)) if food_arr.index(del)
       end
     end
 
@@ -164,7 +165,13 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
 
+  def location
+
+    # respond_to do |format|
+    #     format.js
+    # end
   end
 
   def search
@@ -172,4 +179,17 @@ class UsersController < ApplicationController
     render json: Yelp.client.search(‘San Francisco’, parameters)
   end
 
+  # def search
+  #   @terms = @user.food_arr.to_s
+  #   parameters = {
+  #     term: @terms, #check this out (STRING, OPTIONAL)
+  #     limit: 1,
+  #     radius_filter: 900 #measured in meters. 900m >=~ .5 mile
+  #     category_filter: "food",
+  #     cll: @user.latitude,@user.longitude,
+  #     #above seems to require data type "double"... let's see if "float" works.
+  #      }
+  #   render json: Yelp.client.search(‘@user.location’, parameters)
+  # end
+  
 end
