@@ -54,6 +54,7 @@ class UsersController < ApplicationController
   def seventh_price
     @user = User.where(id: session[:user_id]).first
     @user.update(healthy: params[:healthy])
+    @user.update(price: params[:price])
 
     respond_to do |format|
       format.js
@@ -62,8 +63,8 @@ class UsersController < ApplicationController
 
   def result
     @user = User.where(id: session[:user_id]).first
+    # @user.food_arr = ["Chinese", "Pizza", "Fast Food", "Italian", "Latin American", "Burgers", "Sandwiches", "Salad", "Korean", "Mexican", "Japanese", "Delis", "Indian", "Sushi Bars", "American", "Caribbean", "Diners", "Seafood", "Thai", "Asian Fusion", "Barbeque", "Mediterranean", "Buffets", "Cheesesteaks", "Chicken Wings", "Comfort Food", "Dumplings", "Fish & Chips", "Food Stands", "Gastropubs", "Hot Dogs", "Soul Food", "Soup", "Tex-Mex", "Waffles"]
     @user.update(price: params[:price])
-
     food_arr = ["Chinese", "Pizza", "Fast Food", "Italian", "Latin American", "Burgers", "Sandwiches", "Salad", "Korean", "Mexican", "Japanese", "Delis", "Indian", "Sushi Bars", "American", "Caribbean", "Diners", "Seafood", "Thai", "Asian Fusion", "Barbeque", "Mediterranean", "Buffets", "Cheesesteaks", "Chicken Wings", "Comfort Food", "Dumplings", "Fish & Chips", "Food Stands", "Gastropubs", "Hot Dogs", "Soul Food", "Soup", "Tex-Mex", "Waffles"]
 
     if @user.mood == false
@@ -127,31 +128,31 @@ class UsersController < ApplicationController
     if @user.mood == true
       @mood = "We know you're feeling great today "
     else
-      @mood = "We know things are not going so well so far..."
+      @mood = "We know you're having a rough one..."
     end
 
     if @user.weather == true
-      @weather = "and it's high temperature out there. "
+      @weather = "and it's warm out there. "
     else
       @weather = "and it's cold outside. "
     end
 
     if @user.healthy == true
-      @healthy = "You said you wanted to eat healthy "
+      @healthy = "We think you want something healthy "
     else
-      @healthy = "You said you are not particulary in healthy food "
+      @healthy = "You don't strike us as a salad person "
     end
 
     if @user.spicy == true
-      @spicy = "and we gotchu, hot, spicy food. "
+      @spicy = "and we gotchu: hot, spicy food floats your boat. "
     else
-      @spicy = "and we gotchu, no spicy food. "
+      @spicy = "and we gotchu: you're not into spicy stuff. "
     end
 
     if @user.price == true
-      @price = "Money-wise, money isn't a factor to your choice..."
+      @price = "Money is no object..."
     else
-      @price = "Money-wise, keep the budget low. "
+      @price = "You're looking for a deal. "
     end
 
     if @user.restriction == "kosher"
@@ -174,22 +175,42 @@ class UsersController < ApplicationController
     # end
   end
 
-  def search
-    parameters = { term: params[:term], limit: 16 }
-    render json: Yelp.client.search(‘San Francisco’, parameters)
+  def choiceForToday
+    @user = User.where(id: session[:user_id]).first
+
+    redirect_to whatsForLunch_path
   end
 
-  # def search
-  #   @terms = @user.food_arr.to_s
-  #   parameters = {
-  #     term: @terms, #check this out (STRING, OPTIONAL)
-  #     limit: 1,
-  #     radius_filter: 900 #measured in meters. 900m >=~ .5 mile
-  #     category_filter: "food",
-  #     cll: @user.latitude,@user.longitude,
-  #     #above seems to require data type "double"... let's see if "float" works.
-  #      }
-  #   render json: Yelp.client.search(‘@user.location’, parameters)
-  # end
+  def show
+    @user = User.where(id: session[:user_id]).last
+    
+  #below is suggested to be in HomeController... do we want
+  #it here, or in UserController?
+
+    def search
+      @user = User.where(id: session[:user_id]).last
+      terms = @user.food_arr.to_s
+      locale = { lang: 'en' }
+      coordinates = {latitude: @user.latitude, longitude: @user.longitude}
+      params = {
+        term: terms, #check this out (STRING, OPTIONAL)
+        limit: 1,
+        radius_filter: 900, #measured in meters. 900m >=~ .5 mile
+        category_filter: "food",
+        deals_filter: @user.price,
+        cll: "@user.latitude,@user.longitude"
+        #above seems to require data type "double"... let's see if "float" works.
+         } 
+    
+      render json: Yelp.client.search(params)
+    end
+      response = Yelp.client.search("#{@user.location}", {term: "#{@user.food_arr.to_s}" })
+  end
+
+#   def search
+#     parameters = { term: params[:term], limit: 16 }
+#     render json: Yelp.client.search(‘San Francisco’, parameters)
+#   end
+#   ABOVE IS TAKEN DIRECTLY FROM YELP API
   
 end
