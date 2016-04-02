@@ -8,9 +8,4 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.where(session[:user_id]).first
   end
 
-  # def current_user
-  #   return unless session[:user_id]
-  #   @current_user ||= User.where(session[:user_id]).first
-  # end
-
 end

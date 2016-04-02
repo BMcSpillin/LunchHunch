@@ -76,7 +76,6 @@ class UsersController < ApplicationController
       non_comfort_slice.each do |del|
         food_arr.delete_at(food_arr.index(del)) if food_arr.index(del)
       end
-
     end
 
     if @user.healthy == true
@@ -115,15 +114,21 @@ class UsersController < ApplicationController
         food_arr.delete_at(food_arr.index(del)) if food_arr.index(del)
       end
     else # Remove spicy food options
-        spice_slice = ["Latin American", "Mexican", "Indian", "Caribbean", "Thai", "Tex-Mex"]
+      spice_slice = ["Latin American", "Mexican", "Indian", "Caribbean", "Thai", "Tex-Mex"]
 
-        spice_slice.each do |del|
+      spice_slice.each do |del|
         food_arr.delete_at(food_arr.index(del)) if food_arr.index(del)
-        end
+      end
     end
 
     @user.update(food_arr: food_arr)
+    redirect_to whatsForLunch_path
+  end
 
+  def show
+    @user = User.where(id: session[:user_id]).first
+    # render json: Yelp.client.search("#{@user.location}", params)
+    render search_path and return
     # Return results
     if @user.mood == true
       @mood = "We know you're feeling great today "
@@ -163,48 +168,30 @@ class UsersController < ApplicationController
       @restriction = ""
     end
 
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def location
-
     # respond_to do |format|
-    #     format.js
+    #   format.js
     # end
   end
 
-  def choiceForToday
-    @user = User.where(id: session[:user_id]).first
-
-    redirect_to whatsForLunch_path
-  end
-
-  def show
+  def search
     @user = User.where(id: session[:user_id]).last
-    
-  #below is suggested to be in HomeController... do we want
-  #it here, or in UserController?
+    terms = @user.food_arr.to_s
+    locale = { lang: 'en' }
+    coordinates = {latitude: @user.latitude, longitude: @user.longitude}
+    parameters = {
+      term: terms, #check this out (STRING, OPTIONAL)
+      limit: 1,
+      radius_filter: 900, #measured in meters. 900m >=~ .5 mile
+      category_filter: "food",
+      deals_filter: @user.price,
+      # cll: "@user.latitude,@user.longitude"
+      #above seems to require data type "double"... let's see if "float" works.
+       } 
 
-    def search
-      @user = User.where(id: session[:user_id]).last
-      terms = @user.food_arr.to_s
-      locale = { lang: 'en' }
-      coordinates = {latitude: @user.latitude, longitude: @user.longitude}
-      params = {
-        term: terms, #check this out (STRING, OPTIONAL)
-        limit: 1,
-        radius_filter: 900, #measured in meters. 900m >=~ .5 mile
-        category_filter: "food",
-        deals_filter: @user.price,
-        cll: "@user.latitude,@user.longitude"
-        #above seems to require data type "double"... let's see if "float" works.
-         } 
-    
-      render json: Yelp.client.search(params)
-    end
-      response = Yelp.client.search("#{@user.location}", {term: "#{@user.food_arr.to_s}" })
+      puts locale
+      puts coordinates
+      puts params
+    render json: Yelp.client.search('New York')
   end
 
 #   def search
@@ -212,5 +199,6 @@ class UsersController < ApplicationController
 #     render json: Yelp.client.search(‘San Francisco’, parameters)
 #   end
 #   ABOVE IS TAKEN DIRECTLY FROM YELP API
+
   
 end
