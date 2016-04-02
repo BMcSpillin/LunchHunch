@@ -70,6 +70,7 @@ class UsersController < ApplicationController
   def seventh_price
     @user = User.where(id: session[:user_id]).first
     @user.update(healthy: params[:healthy])
+    @user.update(price: params[:price])
 
     respond_to do |format|
       format.js
@@ -81,7 +82,7 @@ class UsersController < ApplicationController
 
   def result
     @user = User.where(id: session[:user_id]).first
-    @user.food_arr = ["Chinese", 'Pizza', "Fast Food", "Italian", "Latin American", "Burgers", "Sandwiches", "Salad", "Korean", "Mexican", "Japanese", "Delis", "Indian", "Sushi Bars", "American", "Caribbean", "Diners", "Seafood", "Thai", "Asian Fusion", "Barbeque", "Mediterranean", "Buffets", "Cheesesteaks", "Chicken Wings", "Comfort Food", "Dumplings", "Fish & Chips", "Food Stands", "Gastropubs", "Hot Dogs", "Soul Food", "Soup", "Tex-Mex", "Waffles"]
+    @user.food_arr = ["Chinese", "Pizza", "Fast Food", "Italian", "Latin American", "Burgers", "Sandwiches", "Salad", "Korean", "Mexican", "Japanese", "Delis", "Indian", "Sushi Bars", "American", "Caribbean", "Diners", "Seafood", "Thai", "Asian Fusion", "Barbeque", "Mediterranean", "Buffets", "Cheesesteaks", "Chicken Wings", "Comfort Food", "Dumplings", "Fish & Chips", "Food Stands", "Gastropubs", "Hot Dogs", "Soul Food", "Soup", "Tex-Mex", "Waffles"]
 
     if @user.mood == false
       #mood is bad(false), get rid of non-comfort foods
@@ -145,29 +146,34 @@ class UsersController < ApplicationController
   def choiceForToday
     @user = User.where(id: session[:user_id]).first
 
-    redirect_to results_path
+    redirect_to whatsForLunch_path
   end
 
   def show
-    @user = User.where(id: session[:user_id]).first
-  end
+    @user = User.where(id: session[:user_id]).last
+    
   #below is suggested to be in HomeController... do we want
-#it here, or in UserController?
+  #it here, or in UserController?
 
-  def search
-    @terms = @user.food_arr.to_s
-    parameters = {
-      term: @terms, #check this out (STRING, OPTIONAL)
-      limit: 1,
-      radius_filter: 900 #measured in meters. 900m >=~ .5 mile
-      category_filter: "food",
-      cll: @user.latitude,@user.longitude,
-      #above seems to require data type "double"... let's see if "float" works.
-       }
-    render json: Yelp.client.search(‘@user.location’, parameters)
+    def search
+      @user = User.where(id: session[:user_id]).last
+      terms = @user.food_arr.to_s
+      locale = { lang: 'en' }
+      coordinates = {latitude: @user.latitude, longitude: @user.longitude}
+      params = {
+        term: terms, #check this out (STRING, OPTIONAL)
+        limit: 1,
+        radius_filter: 900, #measured in meters. 900m >=~ .5 mile
+        category_filter: "food",
+        deals_filter: @user.price,
+        cll: "@user.latitude,@user.longitude"
+        #above seems to require data type "double"... let's see if "float" works.
+         } 
+    
+      render json: Yelp.client.search(params)
+    end
+      response = Yelp.client.search("#{@user.location}", {term: "#{@user.food_arr.to_s}" })
+
   end
-
-#***params[:term] I guess will be equal
-#to whatever array we wind up with?
 
 end

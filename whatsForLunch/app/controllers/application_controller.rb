@@ -7,5 +7,5 @@ class ApplicationController < ActionController::Base
     return unless session[:user_id]
     @current_user ||= User.where(session[:user_id]).first
   end
-
+  
 end

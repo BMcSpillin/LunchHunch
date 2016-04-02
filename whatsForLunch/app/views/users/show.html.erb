@@ -1,9 +1,13 @@
-<div>
-  <%=@user.location %>
-  <%=@user.allergies %>
-  <%=@user.weather %>
-  <%=@user.mood %>
-  <%=@user.healthy %>
-  <%=@user.spicy %>
-  <%=@user.price %>
+<div id="results">
+  <p>Display results</p>
+  
+   
+  <%= div_for(response) do %>
+    <%= response.businesses[0].name %>
+  <!-- <#%= results.businesses[0].image_url %>
+  <#%= results.businesses[0].review_count %>
+  <#%= results.businesses[0].rating_img_url_small %>
+  <#%= results.businesses[0].display_address %>
+  <#%= results.businesses[0].title %> -->
+  <% end %>
 </div>
