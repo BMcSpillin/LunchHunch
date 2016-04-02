@@ -1,0 +1,16 @@
+<div class="question">
+<!-- 	<p id="current_location"></p><br /> -->
+	Kosher, Vegetian?<br />
+</div>
+<div class="answer">
+	<div class="three-choices">
+		<%= link_to "Kosher", questionMood_path(:restriction => "kosher"), :method => :post, id: 'three-choices', remote: true %>
+	</div>
+	<div class="three-choices">
+		<%= link_to "Vegetarian", questionMood_path(:restriction => "vegetarian"), :method => :post, id: 'three-choices', remote: true %>
+	</div>
+	<div class="three-choices">
+	<%= link_to "Skip", questionMood_path(:restriction => ""), :method => :post, id: 'three-choices', remote: true %>
+	</div>
+</div>
+
