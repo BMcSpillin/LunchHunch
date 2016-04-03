@@ -1,21 +1,16 @@
 <div id="results">
-  <p> We've found your location and you're about to get fed.</p>
-  <strong><%= @user.location %></strong><br/><br/>
+  <!-- <#% if @user.latitude != nil %> -->
+    <%= "We've located you, and you're about to get fed." %><br/>
+    <strong><%= @user.location %></strong><br/><br/>
 
-  <!-- <#%= Yelp.client.search.each do |response| %>
-    <#%= response.businesses[0].name %>
-    <#%= results.businesses[0].image_url %>
-    <#%= results.businesses[0].review_count %>
-    <#%= results.businesses[0].rating_img_url_small %>
-    <#%= results.businesses[0].display_address %>
-    <#%= results.businesses[0].title %>
-  <#% end %> -->
+<!-- <#%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].name %>
+<img src="#{<#%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].image_url %>}"></img>
+<#%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].review_count %>
+<img src="#{<#%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].rating_img_url_small %>}"></img>
+<#%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].location.display_address %>
+<a href="<#% Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].url %>">Check out this business on Yelp!</a> -->
+
+  <!-- <#% else %>
+    <#%= "Please turn your location services on so we can get you fed." %> -->
+  <!-- <#% end %> -->
 </div>
-
-<!-- here, we want to return - 
-the restaurant's name 
-the restaurant's address 
-the restaurant's number
-with the map
-name with link to the official website
- -->

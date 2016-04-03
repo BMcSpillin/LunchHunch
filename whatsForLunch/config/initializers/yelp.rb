@@ -7,5 +7,6 @@ Yelp.client.configure do |config|
   config.token = ENV['YELP_TOKEN']
   config.token_secret = ENV['YELP_TOKEN_SECRET']
 end
+
 OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 # Yelp.client.search('', { term: 'food' })
