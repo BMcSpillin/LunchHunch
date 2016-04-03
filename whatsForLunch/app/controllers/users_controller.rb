@@ -65,7 +65,6 @@ class UsersController < ApplicationController
 
   def result
     @user = User.where(id: session[:user_id]).first
-    # @user.food_arr = ["Chinese", "Pizza", "Fast Food", "Italian", "Latin American", "Burgers", "Sandwiches", "Salad", "Korean", "Mexican", "Japanese", "Delis", "Indian", "Sushi Bars", "American", "Caribbean", "Diners", "Seafood", "Thai", "Asian Fusion", "Barbeque", "Mediterranean", "Buffets", "Cheesesteaks", "Chicken Wings", "Comfort Food", "Dumplings", "Fish & Chips", "Food Stands", "Gastropubs", "Hot Dogs", "Soul Food", "Soup", "Tex-Mex", "Waffles"]
     @user.update(price: params[:price])
     food_arr = ["Chinese", "Pizza", "Fast Food", "Italian", "Latin American", "Burgers", "Sandwiches", "Salad", "Korean", "Mexican", "Japanese", "Delis", "Indian", "Sushi Bars", "American", "Caribbean", "Diners", "Seafood", "Thai", "Asian Fusion", "Barbeque", "Mediterranean", "Buffets", "Cheesesteaks", "Chicken Wings", "Comfort Food", "Dumplings", "Fish & Chips", "Food Stands", "Gastropubs", "Hot Dogs", "Soul Food", "Soup", "Tex-Mex", "Waffles"]
 
@@ -73,7 +72,7 @@ class UsersController < ApplicationController
       # When Mood is meh(false), return Comfort Food only
       # Remove Non-Comfort Food options
 
-      non_comfort_slice = ["Latin American", "Sandwiches", "Korean", "Mexican", "Japanese", "Korean", "Delis", "Sushi Bars", "Seafood", "Thai", "Asian Fusion", "Mediterranean", "Salad", "Food Stands", "Hot Dogs", "Tex-Mex"]
+      non_comfort_slice = ["Latin American", "Sandwiches", "Korean", "Mexican", "Japanese", "Delis", "Sushi Bars", "Seafood", "Asian Fusion", "Mediterranean", "Salad", "Food Stands", "Hot Dogs", "Tex-Mex"]
 
       non_comfort_slice.each do |del|
         food_arr.delete_at(food_arr.index(del)) if food_arr.index(del)
@@ -119,7 +118,6 @@ class UsersController < ApplicationController
 
     @user.update(food_arr: food_arr)
     
-    render :action => 'show'
   end
 
   def show
@@ -144,4 +142,5 @@ class UsersController < ApplicationController
       deals_filter: @user.price
       }
   end
+
 end

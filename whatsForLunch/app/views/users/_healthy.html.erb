@@ -1,14 +1,19 @@
+
 <div class="question">
-	Do you even lift bro?<br/>
-</div>
-<div class="answer">
-
-	<div class="two-choices">
-		<%= link_to "Yah dude", questionPrice_path(:healthy => true), :method => :post, :action => :result, remote: true %>
+	<br/><br/>
+	<span style="color: grey; font-size: 20px">Question 5/6:</span>
+	<br/>
+	<div class="animated flipInX">
+		Do you even lift bro?
 	</div>
-
-	<div class="two-choices">
-	<%= link_to "Nah dude", questionPrice_path(:healthy => false), :method => :post, :action => :result, remote: true %>
-	</div>
-  
 </div>
+<ul class="answer">
+	<li class="two-choices">
+		<img src="/assets/gym.svg" width="50">
+			<%= link_to "Yah dude", questionPrice_path(:healthy => true), id: 'two-choices', :method => :post, remote: true %>
+	</li>
+	<li class="two-choices">
+		<img src="/assets/couch-potato.png" width="50">
+		<%= link_to "Nah dude", questionPrice_path(:healthy => false), :method => :post, id: 'two-choices', remote: true %>
+	</li>
+</ul>

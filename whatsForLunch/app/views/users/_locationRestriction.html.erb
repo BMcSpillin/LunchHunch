@@ -1,16 +1,27 @@
-<div class="question">
-<!-- 	<p id="current_location"></p><br /> -->
-	Kosher, Vegetarian?<br />
-</div>
-<div class="answer">
-	<div class="three-choices">
-		<%= link_to "Kosher", questionMood_path(:restriction => "kosher"), :method => :post, id: 'three-choices', remote: true %>
-	</div>
-	<div class="three-choices">
-		<%= link_to "Vegetarian", questionMood_path(:restriction => "vegetarian"), :method => :post, id: 'three-choices', remote: true %>
-	</div>
-	<div class="three-choices">
-	<%= link_to "Skip", questionMood_path(:restriction => ""), :method => :post, id: 'three-choices', remote: true %>
-	</div>
-</div>
 
+<div class="question">
+	<br/><br/>
+	<span style="color: grey; font-size: 20px">Question 1/6:</span><br/>
+	<div class="animated flipInX">
+		Any dietary restriction?
+	</div>
+	<ul>
+		<li>
+			<%= link_to image_tag('/assets/skip.svg', style: "width: 25px") + ' Skip', questionMood_path(:restriction => ""), :method => :post, id: 'skip', remote: true %>
+		</li>
+	</ul>
+</div>
+<ul class="answer">
+	<li class="three-choices">
+		<img src="/assets/kosher.svg" width="50">
+		<%= link_to "Kosher", questionMood_path(:restriction => "kosher"), :method => :post, id: 'three-choices', remote: true %>
+	</li>
+	<li class="three-choices">
+		<img src="/assets/vegetarian.svg" width="50">
+		<%= link_to "Vegetarian", questionMood_path(:restriction => "vegetarian"), :method => :post, id: 'three-choices', remote: true %>
+	</li>
+	<li class="three-choices-01">
+		<img src="/assets/halal.svg" width="50">
+		<%= link_to "Halal", questionMood_path(:restriction => "halal"), :method => :post, id: 'three-choices', remote: true %>
+	</li>
+</ul>
