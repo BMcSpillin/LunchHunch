@@ -117,7 +117,7 @@ class UsersController < ApplicationController
     end
 
     @user.update(food_arr: food_arr)
-    
+    render "show"
   end
 
   def show
