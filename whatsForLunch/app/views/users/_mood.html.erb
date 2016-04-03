@@ -1,11 +1,17 @@
 <div class="question">
-	You feelin' good today?<br />
-</div>
-<div class="answer">
-	<div class="two-choices">
-		<%= link_to "Sure", questionWeather_path(:mood => true), :method => :post, remote: true %>
-	</div>
-	<div class="two-choices">
-		<%= link_to "Meh", questionWeather_path(:mood => false), :method => :post, remote: true %>
+	<br /><br />
+	<span style="color: grey; font-size: 20px">Question 2/6:</span><br />
+	<div class="animated flipInX">
+		You feelin' good today?
 	</div>
 </div>
+<ul class="answer">
+	<li class="two-choices">
+		<img src="/assets/happy.svg" width="50">
+		<%= link_to "Sure", questionWeather_path(:mood => true), id: 'two-choices', :method => :post, remote: true %>
+	</li>
+	<li class="two-choices">
+		<img src="/assets/sad.svg" width="50">
+		<%= link_to "Meh", questionWeather_path(:mood => false), :method => :post, id: 'two-choices', remote: true %>
+	</li>
+</ul>

@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>What's For Lunch?</title>
+  <title>Look What's For Lunch -- LUNCH LOOK</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="/assets/main.css">
-
-  <%#= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_MAPS']}&sensor=true" %>
+  <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 
 </head>
 <body>
@@ -18,10 +17,9 @@
 		<div id="content">
 			<div id="header"></div>
 			<div id="body">
-				<img id="logo" src="/assets/logo.jpg" width="300">
+				<img id="logo" class="animated bounce" src="/assets/logo.png" width="300">
 				<%= yield %>
 			</div>
-			<div id="footer"></div>
 		</div>
 	</div>
 </body>

@@ -1,11 +1,17 @@
 <div class="question">
-	What's it like out there today?<br />
-</div>
-<div class="answer">
-	<div class="two-choices">
-		<%= link_to "Sweaty weather", questionSpicy_path(:weather => true), :method => :post, remote: true %>
-	</div>
-	<div class="two-choices">
-		<%= link_to "Sweater weather", questionSpicy_path(:weather => false), :method => :post, remote: true %>
+	<br /><br />
+	<span style="color: grey; font-size: 20px">Question 3/6:</span><br />
+	<div class="animated flipInX">
+		What's it like out there today?
 	</div>
 </div>
+<ul class="answer">
+	<li class="two-choices">
+		<img src="/assets/hot.svg" width="50">
+		<%= link_to "Sweaty weather", questionSpicy_path(:weather => true), id: 'two-choices', :method => :post, remote: true %>
+	</li>
+	<li class="two-choices">
+		<img src="/assets/cold.svg" width="50">
+		<%= link_to "Sweater weather", questionSpicy_path(:weather => false), :method => :post, id: 'two-choices', remote: true %>
+	</li>
+</ul>

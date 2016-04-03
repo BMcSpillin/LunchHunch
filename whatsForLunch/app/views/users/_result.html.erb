@@ -1,14 +1,9 @@
-We've found your location and we got what you want.<br />
-<strong><%= @user.location %></strong><br /><br />
-  
-<p><%= @mood %><%= @weather %><%= @healthy %><%= @spicy %><%= @price %><%= @restriction %></p>
+<div class="magic openDownLeft">
+	<div id="summary-title">These are your life decision:</div> 
+	<div id="summary">
+		<%= @mood %><%= @weather %><%= @healthy %><%= @spicy %><%= @price %><%= @restriction %>
+	</div>
+</div>
 
-<!-- here, we want to return - 
-the restaurant's name 
-the restaurant's address 
-the restaurant's number
-with the map
-name with link to the official website
- -->
-
-<a href="https://api.yelp.com/v2/search/?location=new york, ny&category_filter=pizza,japanese">Testing</a>
+<!-- Hidden field get location -->
+<%= link_to "NOW GET ME SOME GRUB", choiceForToday_path, class: 'sweep-to-right', :method => :post, remote: true %><br />

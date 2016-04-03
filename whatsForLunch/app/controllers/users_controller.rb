@@ -125,39 +125,41 @@ class UsersController < ApplicationController
 
     # Return results
     if @user.mood == true
-      @mood = "We know you're feeling great today "
+      @mood = "Awesome! You're feeling great today.  "
     else
-      @mood = "We know things are not going so well so far..."
+      @mood = "Meh? Maybe some great grub will cheer you up.  "
     end
 
     if @user.weather == true
-      @weather = "and it's high temperature out there. "
+      @weather = "Holy sun! It's hot out there!  "
     else
-      @weather = "and it's cold outside. "
+      @weather = "Brrr! Hope you brought a jacket.  "
     end
 
     if @user.healthy == true
-      @healthy = "You said you wanted to eat healthy "
+      @healthy = "You'll want to keep that swimsuit shape "
     else
-      @healthy = "You said you are not particulary in healthy food "
+      @healthy = "What's life if you can't live it decadently "
     end
 
     if @user.spicy == true
-      @spicy = "and we gotchu, hot, spicy food. "
+      @spicy = "and we gotcha - hot picante for "
     else
-      @spicy = "and we gotchu, no spicy food. "
+      @spicy = "and we gotcha - keeping it mellow for "
     end
 
     if @user.price == true
-      @price = "Money-wise, money isn't a factor to your choice..."
+      @price = "Mr./Ms. Moneybags.  "
     else
-      @price = "Money-wise, keep the budget low. "
+      @price = "Mr./Ms. I'm-saving-up-to-buy-that-diamond-boat.  "
     end
 
     if @user.restriction == "kosher"
-      @restriction = "And thanks for letting us know you eat Kosher."
+      @restriction = "And thanks for letting us know you keep Kosher. Mazel Tov!"
+    elsif @user.restriction == "halal"
+      @restriction = "And thanks for letting us know you keep Halal. Mabrouk!"
     elsif @user.restriction == "vegetarian"
-      @restriction = "And thanks for letting us know you are a vegetarian."
+      @restriction = "And thanks for letting us know you are a vegetarian, planeteer!"
     else
       @restriction = ""
     end
@@ -167,17 +169,27 @@ class UsersController < ApplicationController
     end
   end
 
-  def location
+  def choice_for_today
+    @user = User.where(id: session[:user_id]).first
+    # Here we save the user's location? Or at the beginning?
+    # TBD
 
-    # respond_to do |format|
-    #     format.js
-    # end
+    respond_to do |format|
+      format.js
+    end
   end
 
-  def search
-    parameters = { term: params[:term], limit: 16 }
-    render json: Yelp.client.search(‘San Francisco’, parameters)
-  end
+  # def location
+
+  #   # respond_to do |format|
+  #   #     format.js
+  #   # end
+  # end
+
+  # def search
+  #   parameters = { term: params[:term], limit: 16 }
+  #   render json: Yelp.client.search(‘San Francisco’, parameters)
+  # end
 
   # def search
   #   @terms = @user.food_arr.to_s
