@@ -63,7 +63,6 @@ class UsersController < ApplicationController
 
   def result
     @user = User.where(id: session[:user_id]).first
-    # @user.food_arr = ["Chinese", "Pizza", "Fast Food", "Italian", "Latin American", "Burgers", "Sandwiches", "Salad", "Korean", "Mexican", "Japanese", "Delis", "Indian", "Sushi Bars", "American", "Caribbean", "Diners", "Seafood", "Thai", "Asian Fusion", "Barbeque", "Mediterranean", "Buffets", "Cheesesteaks", "Chicken Wings", "Comfort Food", "Dumplings", "Fish & Chips", "Food Stands", "Gastropubs", "Hot Dogs", "Soul Food", "Soup", "Tex-Mex", "Waffles"]
     @user.update(price: params[:price])
     food_arr = ["Chinese", "Pizza", "Fast Food", "Italian", "Latin American", "Burgers", "Sandwiches", "Salad", "Korean", "Mexican", "Japanese", "Delis", "Indian", "Sushi Bars", "American", "Caribbean", "Diners", "Seafood", "Thai", "Asian Fusion", "Barbeque", "Mediterranean", "Buffets", "Cheesesteaks", "Chicken Wings", "Comfort Food", "Dumplings", "Fish & Chips", "Food Stands", "Gastropubs", "Hot Dogs", "Soul Food", "Soup", "Tex-Mex", "Waffles"]
 
@@ -164,6 +163,10 @@ class UsersController < ApplicationController
       @restriction = ""
     end
 
+    respond_to do |format|
+      format.js
+    end
+
   end
 
   def choice_for_today
@@ -176,20 +179,20 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
-    @user = User.where(id: session[:user_id]).first
-    terms = { term: @user.food_arr.to_s }
-    locale = { lang: 'en' }
-    coordinates = {latitude: @user.latitude, longitude: @user.longitude}
-    parameters = {
-      term: terms,
-      # terms, #check this out (STRING, OPTIONAL)
-      limit: 1,
-      radius_filter: 900, #measured in meters. 900m >=~ .5 mile
-      category_filter: "food",
-      deals_filter: @user.price
-      } 
-    render json: Yelp.client.search_by_coordinates(coordinates, parameters, locale)
+  # def show
+  #   @user = User.where(id: session[:user_id]).first
+  #   terms = { term: @user.food_arr.to_s }
+  #   locale = { lang: 'en' }
+  #   coordinates = {latitude: @user.latitude, longitude: @user.longitude}
+  #   parameters = {
+  #     term: terms,
+  #     # terms, #check this out (STRING, OPTIONAL)
+  #     limit: 1,
+  #     radius_filter: 900, #measured in meters. 900m >=~ .5 mile
+  #     category_filter: "food",
+  #     deals_filter: @user.price
+  #     } 
+  #   render json: Yelp.client.search_by_coordinates(coordinates, parameters, locale)
 
   # def search
   #   @terms = @user.food_arr.to_s
