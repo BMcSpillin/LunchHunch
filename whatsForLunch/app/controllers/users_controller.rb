@@ -122,51 +122,64 @@ class UsersController < ApplicationController
     end
 
     @user.update(food_arr: food_arr)
-    redirect_to whatsForLunch_path
+    
+    render :action => 'show'
   end
 
   def show
     @user = User.where(id: session[:user_id]).first
-    # render json: Yelp.client.search("#{@user.location}", params)
-    render search_path and return
-    # Return results
-    if @user.mood == true
-      @mood = "We know you're feeling great today "
-    else
-      @mood = "We know you're having a rough one..."
-    end
+    terms = { term: @user.food_arr.to_s }
+    locale = { lang: 'en' }
+    coordinates = {latitude: @user.latitude, longitude: @user.longitude}
+    parameters = {
+      term: terms,
+      # terms, #check this out (STRING, OPTIONAL)
+      limit: 1,
+      radius_filter: 900, #measured in meters. 900m >=~ .5 mile
+      category_filter: "food",
+      deals_filter: @user.price
+      } 
+    render json: Yelp.client.search_by_coordinates(coordinates, parameters, locale)
+    # render search_path and return
 
-    if @user.weather == true
-      @weather = "and it's warm out there. "
-    else
-      @weather = "and it's cold outside. "
-    end
+    # # Return results
+    # if @user.mood == true
+    #   @mood = "We know you're feeling great today "
+    # else
+    #   @mood = "We know you're having a rough one..."
+    # end
 
-    if @user.healthy == true
-      @healthy = "We think you want something healthy "
-    else
-      @healthy = "You don't strike us as a salad person "
-    end
+    # if @user.weather == true
+    #   @weather = "and it's warm out there. "
+    # else
+    #   @weather = "and it's cold outside. "
+    # end
 
-    if @user.spicy == true
-      @spicy = "and we gotchu: hot, spicy food floats your boat. "
-    else
-      @spicy = "and we gotchu: you're not into spicy stuff. "
-    end
+    # if @user.healthy == true
+    #   @healthy = "We think you want something healthy "
+    # else
+    #   @healthy = "You don't strike us as a salad person "
+    # end
 
-    if @user.price == true
-      @price = "Money is no object..."
-    else
-      @price = "You're looking for a deal. "
-    end
+    # if @user.spicy == true
+    #   @spicy = "and we gotchu: hot, spicy food floats your boat. "
+    # else
+    #   @spicy = "and we gotchu: you're not into spicy stuff. "
+    # end
 
-    if @user.restriction == "kosher"
-      @restriction = "And thanks for letting us know you eat Kosher."
-    elsif @user.restriction == "vegetarian"
-      @restriction = "And thanks for letting us know you are a vegetarian."
-    else
-      @restriction = ""
-    end
+    # if @user.price == true
+    #   @price = "Money is no object..."
+    # else
+    #   @price = "You're looking for a deal. "
+    # end
+
+    # if @user.restriction == "kosher"
+    #   @restriction = "And thanks for letting us know you eat Kosher."
+    # elsif @user.restriction == "vegetarian"
+    #   @restriction = "And thanks for letting us know you are a vegetarian."
+    # else
+    #   @restriction = ""
+    # end
 
     # respond_to do |format|
     #   format.js
@@ -175,30 +188,18 @@ class UsersController < ApplicationController
 
   def search
     @user = User.where(id: session[:user_id]).last
-    terms = @user.food_arr.to_s
+    terms = { term: @user.food_arr.to_s }
     locale = { lang: 'en' }
     coordinates = {latitude: @user.latitude, longitude: @user.longitude}
     parameters = {
-      term: terms, #check this out (STRING, OPTIONAL)
+      term: terms,
       limit: 1,
+      is_closed: false,
       radius_filter: 900, #measured in meters. 900m >=~ .5 mile
       category_filter: "food",
-      deals_filter: @user.price,
-      # cll: "@user.latitude,@user.longitude"
-      #above seems to require data type "double"... let's see if "float" works.
-       } 
-
-      puts locale
-      puts coordinates
-      puts params
-    render json: Yelp.client.search('New York')
+      deals_filter: @user.price
+      } 
+    render json: Yelp.client.search_by_coordinates(coordinates, parameters, locale)
   end
-
-#   def search
-#     parameters = { term: params[:term], limit: 16 }
-#     render json: Yelp.client.search(‘San Francisco’, parameters)
-#   end
-#   ABOVE IS TAKEN DIRECTLY FROM YELP API
-
   
 end

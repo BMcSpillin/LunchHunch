@@ -7,9 +7,8 @@ Rails.application.routes.draw do
   post 'questions/6' => "users#sixth_healthy", as: :questionHealthy
   post 'questions/7' => "users#seventh_price", as: :questionPrice
   post 'result' => "users#result", as: :result
-  get '/search' => 'users#search'
   get 'result' => "users#show", as: :whatsForLunch
-  resources :users
+  get 'search' => 'users#search', as: :search
 
   root 'users#index'
 
