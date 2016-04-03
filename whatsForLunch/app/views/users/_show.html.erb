@@ -1,19 +1,21 @@
 <div id="results">
-  <p>Display results</p>
-  
-   We've found your location and you're about to get fed.</br>
-<strong><%= @user.location %></strong></br></br>
+  <p> We've found your location and you're about to get fed.</p>
+  <strong><%= @user.location %></strong><br/><br/>
 
-
-  <!-- 
-<p><#%= @mood %><#%= @weather %><#%= @healthy %><#%= @spicy %><#%= @price %><#%= @restriction %></p> -->
-
-  <!-- <#%= div_for(response) do %> -->
-    <!-- <#%= response.businesses[0].name %> -->
-  <!-- <#%= results.businesses[0].image_url %>
-  <#%= results.businesses[0].review_count %>
-  <#%= results.businesses[0].rating_img_url_small %>
-  <#%= results.businesses[0].display_address %>
-  <#%= results.businesses[0].title %> -->
-  <!-- <#% end %> -->
+  <!-- <#%= Yelp.client.search.each do |response| %>
+    <#%= response.businesses[0].name %>
+    <#%= results.businesses[0].image_url %>
+    <#%= results.businesses[0].review_count %>
+    <#%= results.businesses[0].rating_img_url_small %>
+    <#%= results.businesses[0].display_address %>
+    <#%= results.businesses[0].title %>
+  <#% end %> -->
 </div>
+
+<!-- here, we want to return - 
+the restaurant's name 
+the restaurant's address 
+the restaurant's number
+with the map
+name with link to the official website
+ -->
