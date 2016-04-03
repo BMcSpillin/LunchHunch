@@ -6,11 +6,9 @@ Rails.application.routes.draw do
   post 'questions/5' => "users#fifth_spicy", as: :questionSpicy
   post 'questions/6' => "users#sixth_healthy", as: :questionHealthy
   post 'questions/7' => "users#seventh_price", as: :questionPrice
-  post 'result' => "users#result", as: :result
-  post 'choice_for_today' => "users#choice_for_today", as: :choiceForToday 
-  # post 'search' => 'users#search', as: :search
-  # get 'result' => "users#show", as: :whatsForLunch
-  resources :users
+  post 'result' => "users#show", as: :result
+  get 'search' => 'users#search', as: :search
+  #get 'result' => "users#show", as: :whatsForLunch
 
   root 'users#index'
 
