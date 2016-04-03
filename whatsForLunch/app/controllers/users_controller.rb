@@ -136,7 +136,7 @@ class UsersController < ApplicationController
   def search
     @user = User.where(id: session[:user_id]).first
 
-    whatsForLunch = Hash.new{|key, value| key[value] = {}}
+    # whatsForLunch = Hash.new{|key, value| key[value] = {}}
 
     terms = { term: @user.food_arr.to_s }
     locale = { lang: 'en' }
@@ -152,15 +152,15 @@ class UsersController < ApplicationController
       #@response =  
       render json: Yelp.client.search_by_coordinates(coordinates, parameters, locale)
 
-      response.businesses.each do |lunch|
-        whatsForLunch[lunch.name] = {
-          :image_url => lunch.image_url,
-          :review_count => lunch.review_count,
-          :rating_img_url_small => lunch.rating_img_url_small,
-          :display_address => lunch.display_address,
-          :title => lunch.title,
-        }
-      end
+      # response.businesses.each do |lunch|
+      #   whatsForLunch[lunch.name] = {
+      #     :image_url => lunch.image_url,
+      #     :review_count => lunch.review_count,
+      #     :rating_img_url_small => lunch.rating_img_url_small,
+      #     :display_address => lunch.display_address,
+      #     :title => lunch.title,
+      #   }
+      # end
     end
-    # helper_method :search
+    helper_method :search
 end
