@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  helper UsersHelper
   require 'yelp'
 
   def index
@@ -127,21 +126,16 @@ class UsersController < ApplicationController
     # render action: "search" and return
     @user = User.where(id: session[:user_id]).first
     
-    # Return results
     # The code containing the user's summary
     # Has been transferred to README.rdoc for safe keeping.
-    # render :action => 'search'  
   end
 
   def search
     @user = User.where(id: session[:user_id]).first
-
-    # whatsForLunch = Hash.new{|key, value| key[value] = {}}
-
     terms = { term: @user.food_arr.to_s }
-    locale = { lang: 'en' }
-    coordinates = { latitude: @user.latitude, longitude: @user.longitude }
-    parameters = {
+    @locale = { lang: 'en' }
+    @coordinates = { latitude: @user.latitude, longitude: @user.longitude }
+    @parameters = {
       term: terms,
       limit: 1,
       radius_filter: 900, #measured in meters. 900m >=~ .5 mile
@@ -149,18 +143,5 @@ class UsersController < ApplicationController
       category_filter: "food",
       deals_filter: @user.price
       }
-      #@response =  
-      render json: Yelp.client.search_by_coordinates(coordinates, parameters, locale)
-
-      # response.businesses.each do |lunch|
-      #   whatsForLunch[lunch.name] = {
-      #     :image_url => lunch.image_url,
-      #     :review_count => lunch.review_count,
-      #     :rating_img_url_small => lunch.rating_img_url_small,
-      #     :display_address => lunch.display_address,
-      #     :title => lunch.title,
-      #   }
-      # end
-    end
-    helper_method :search
+  end
 end

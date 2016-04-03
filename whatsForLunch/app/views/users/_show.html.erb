@@ -3,23 +3,14 @@
     <%= "We've located you, and you're about to get fed." %><br/>
     <strong><%= @user.location %></strong><br/><br/>
 
-      <#%= response.businesses[0].name %>
-      <#%= response.businesses[0].image_url %>
-      <#%= response.businesses[0].review_count %>
-      <#%= response.businesses[0].rating_img_url_small %>
-      <#%= response.businesses[0].display_address %>
-      <#%= response.businesses[0].title %>
-    <#% end %>
+<!-- <#%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].name %>
+<img src="#{<#%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].image_url %>}"></img>
+<#%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].review_count %>
+<img src="#{<#%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].rating_img_url_small %>}"></img>
+<#%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].location.display_address %>
+<a href="<#% Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].url %>">Check out this business on Yelp!</a> -->
+
   <!-- <#% else %>
     <#%= "Please turn your location services on so we can get you fed." %> -->
   <!-- <#% end %> -->
 </div>
-
-<!-- here, we want to return - 
-the restaurant's name 
-the restaurant's address 
-the restaurant's number
-with the map
-name with link to the official website
-AND/OR YELP DISPLAY REQUIREMENTS
- -->
