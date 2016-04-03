@@ -1,11 +1,14 @@
 <div class="question">
-	Do you even lift bro?</br>
+	Do you even lift bro?<br/>
 </div>
 <div class="answer">
+
 	<div class="two-choices">
 		<%= link_to "Yah dude", questionPrice_path(:healthy => true), :method => :post, :action => :result, remote: true %>
 	</div>
+
 	<div class="two-choices">
 	<%= link_to "Nah dude", questionPrice_path(:healthy => false), :method => :post, :action => :result, remote: true %>
 	</div>
+  
 </div>
