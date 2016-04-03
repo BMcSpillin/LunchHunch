@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   post 'questions/7' => "users#seventh_price", as: :questionPrice
   post 'result' => "users#result", as: :result
   post 'choice_for_today' => "users#choice_for_today", as: :choiceForToday 
-  post 'search' => 'users#search'
+  post 'search' => 'users#search', as: :search
   # get 'result' => "users#show", as: :whatsForLunch
   resources :users
 

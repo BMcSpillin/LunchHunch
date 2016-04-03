@@ -54,6 +54,7 @@ class UsersController < ApplicationController
   def seventh_price
     @user = User.where(id: session[:user_id]).first
     @user.update(healthy: params[:healthy])
+    @user.update(price: params[:price])
 
     respond_to do |format|
       format.js
@@ -62,8 +63,8 @@ class UsersController < ApplicationController
 
   def result
     @user = User.where(id: session[:user_id]).first
+    # @user.food_arr = ["Chinese", "Pizza", "Fast Food", "Italian", "Latin American", "Burgers", "Sandwiches", "Salad", "Korean", "Mexican", "Japanese", "Delis", "Indian", "Sushi Bars", "American", "Caribbean", "Diners", "Seafood", "Thai", "Asian Fusion", "Barbeque", "Mediterranean", "Buffets", "Cheesesteaks", "Chicken Wings", "Comfort Food", "Dumplings", "Fish & Chips", "Food Stands", "Gastropubs", "Hot Dogs", "Soul Food", "Soup", "Tex-Mex", "Waffles"]
     @user.update(price: params[:price])
-
     food_arr = ["Chinese", "Pizza", "Fast Food", "Italian", "Latin American", "Burgers", "Sandwiches", "Salad", "Korean", "Mexican", "Japanese", "Delis", "Indian", "Sushi Bars", "American", "Caribbean", "Diners", "Seafood", "Thai", "Asian Fusion", "Barbeque", "Mediterranean", "Buffets", "Cheesesteaks", "Chicken Wings", "Comfort Food", "Dumplings", "Fish & Chips", "Food Stands", "Gastropubs", "Hot Dogs", "Soul Food", "Soup", "Tex-Mex", "Waffles"]
 
     if @user.mood == false
@@ -75,7 +76,6 @@ class UsersController < ApplicationController
       non_comfort_slice.each do |del|
         food_arr.delete_at(food_arr.index(del)) if food_arr.index(del)
       end
-
     end
 
     if @user.healthy == true
@@ -114,15 +114,15 @@ class UsersController < ApplicationController
         food_arr.delete_at(food_arr.index(del)) if food_arr.index(del)
       end
     else # Remove spicy food options
-        spice_slice = ["Latin American", "Mexican", "Indian", "Caribbean", "Thai", "Tex-Mex"]
+      spice_slice = ["Latin American", "Mexican", "Indian", "Caribbean", "Thai", "Tex-Mex"]
 
-        spice_slice.each do |del|
+      spice_slice.each do |del|
         food_arr.delete_at(food_arr.index(del)) if food_arr.index(del)
-        end
+      end
     end
 
     @user.update(food_arr: food_arr)
-
+    
     # Return results
     if @user.mood == true
       @mood = "Awesome! You're feeling great today.  "
@@ -164,9 +164,6 @@ class UsersController < ApplicationController
       @restriction = ""
     end
 
-    respond_to do |format|
-      format.js
-    end
   end
 
   def choice_for_today
@@ -179,17 +176,20 @@ class UsersController < ApplicationController
     end
   end
 
-  # def location
-
-  #   # respond_to do |format|
-  #   #     format.js
-  #   # end
-  # end
-
-  # def search
-  #   parameters = { term: params[:term], limit: 16 }
-  #   render json: Yelp.client.search(‘San Francisco’, parameters)
-  # end
+  def show
+    @user = User.where(id: session[:user_id]).first
+    terms = { term: @user.food_arr.to_s }
+    locale = { lang: 'en' }
+    coordinates = {latitude: @user.latitude, longitude: @user.longitude}
+    parameters = {
+      term: terms,
+      # terms, #check this out (STRING, OPTIONAL)
+      limit: 1,
+      radius_filter: 900, #measured in meters. 900m >=~ .5 mile
+      category_filter: "food",
+      deals_filter: @user.price
+      } 
+    render json: Yelp.client.search_by_coordinates(coordinates, parameters, locale)
 
   # def search
   #   @terms = @user.food_arr.to_s
@@ -202,6 +202,22 @@ class UsersController < ApplicationController
   #     #above seems to require data type "double"... let's see if "float" works.
   #      }
   #   render json: Yelp.client.search(‘@user.location’, parameters)
+  # end
+
+  # def search
+  #   @user = User.where(id: session[:user_id]).last
+  #   terms = { term: @user.food_arr.to_s }
+  #   locale = { lang: 'en' }
+  #   coordinates = {latitude: @user.latitude, longitude: @user.longitude}
+  #   parameters = {
+  #     term: terms,
+  #     limit: 1,
+  #     is_closed: false,
+  #     radius_filter: 900, #measured in meters. 900m >=~ .5 mile
+  #     category_filter: "food",
+  #     deals_filter: @user.price
+  #     } 
+  #   render json: Yelp.client.search_by_coordinates(coordinates, parameters, locale)
   # end
   
 end
