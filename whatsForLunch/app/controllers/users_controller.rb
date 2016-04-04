@@ -14,10 +14,6 @@ class UsersController < ApplicationController
   def third_mood
     @user = User.where(id: session[:user_id]).first
     @user.update(restriction: params[:restriction])
-    # Update current location to the current user
-    @user.update(latitude: 40.708287)
-    @user.update(longitude: -74.00653129999999)
-    @user.update(location: :reverse_geocode)
 
     respond_to do |format|
       format.js
@@ -65,6 +61,14 @@ class UsersController < ApplicationController
     @user = User.where(id: session[:user_id]).first
     @user.update(price: params[:price])
     food_arr = ["Chinese", "Pizza", "Fast Food", "Italian", "Latin American", "Burgers", "Sandwiches", "Salad", "Korean", "Mexican", "Japanese", "Delis", "Indian", "Sushi Bars", "American", "Caribbean", "Diners", "Seafood", "Thai", "Asian Fusion", "Barbeque", "Mediterranean", "Buffets", "Cheesesteaks", "Chicken Wings", "Comfort Food", "Dumplings", "Fish & Chips", "Food Stands", "Gastropubs", "Hot Dogs", "Soul Food", "Soup", "Tex-Mex", "Waffles"]
+
+    if @user.restriction == "kosher"
+      food_arr.unshift("Kosher")
+    elsif @user.restriction == "vegetarian"
+      food_arr.unshift("Vegetarian")
+    elsif @user.restriction == "halal"
+      food_arr.unshift("Halal")
+    end
 
     if @user.mood == false
       # When Mood is bad(false), return Comfort Food only
@@ -120,6 +124,7 @@ class UsersController < ApplicationController
       end
     end
 
+
     @user.update(food_arr: food_arr)
     
     # Return results
@@ -173,13 +178,8 @@ class UsersController < ApplicationController
     @user = User.where(id: session[:user_id]).first
     @user.update(latitude: params[:user][:latitude], longitude: params[:user][:longitude])
 
-    puts @user.latitude
-    puts @user.longitude
-    puts "Roman Reigns sucks"
-    # Here we save the user's location? Or at the beginning?
-    # TBD
-    # @latitude = params[:latitude]
-    # @longitude = params[:longitude]
+    # Here we save the user's location
+
     respond_to do |format|
       format.js
     end
