@@ -157,6 +157,8 @@ class UsersController < ApplicationController
       @restriction = "And thanks for letting us know you eat Kosher."
     elsif @user.restriction == "vegetarian"
       @restriction = "And thanks for letting us know you are a vegetarian."
+     elsif @user.restriction == "halal"
+      @restriction = "And thanks for letting us know you eat Halal."
     else
       @restriction = ""
     end
@@ -164,7 +166,6 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.js
     end
-    # render "show"
   end
 
 
@@ -173,26 +174,7 @@ class UsersController < ApplicationController
     @user = User.where(id: session[:user_id]).first
     @user.update(latitude: params[:user][:latitude], longitude: params[:user][:longitude])
 
-    puts "hello"
-
-    # terms = { term: @user.food_arr.to_s }
-    # @locale = { lang: 'en' }
-    # @coordinates = { latitude: @user.latitude, longitude: @user.longitude }
-    # @parameters = {
-    #   term: terms,
-    #   limit: 1,
-    #   radius_filter: 1800, #measured in meters. 900m >=~ .5 mile
-    #   is_closed: false,
-    #   category_filter: "restaurants",
-    #   deals_filter: @user.price
-    #   }
-
-    # respond_to do |format|
-    #   format.js
-    # end
-
     redirect_to search_path
-
   end
 
   def search
@@ -203,7 +185,7 @@ class UsersController < ApplicationController
     @parameters = {
       term: terms,
       limit: 1,
-      radius_filter: 1800, #measured in meters. 900m >=~ .5 mile
+      radius_filter: 1800, #measured in meters. 1800m >=~ 1 mile
       is_closed: false,
       category_filter: "restaurants",
       deals_filter: @user.price
