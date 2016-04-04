@@ -124,39 +124,41 @@ class UsersController < ApplicationController
     # Return results
 
     if @user.mood == true
-      @mood = "We know you're feeling great today "
+      @mood = "So, you're feeling good "
     else
-      @mood = "We know you're having a rough one..."
+      @mood = "So, okay, you're having a rough one..."
     end
 
     if @user.weather == true
-      @weather = "and it's warm out there. "
+      @weather = "and it's balmy out there. "
     else
-      @weather = "and it's cold outside. "
+      @weather = "and it's chilly outside. "
     end
 
     if @user.healthy == true
-      @healthy = "We think you want something healthy "
+      @healthy = "You're looking for some nourishment "
     else
-      @healthy = "You don't strike us as a salad person "
+      @healthy = "You seem like a salad person "
     end
 
     if @user.spicy == true
       @spicy = "and we gotchu: hot, spicy food floats your boat. "
     else
-      @spicy = "and we gotchu: you're not into spicy stuff. "
+      @spicy = "and we gotchu: you're not into hot stuff, hot stuff. "
     end
 
     if @user.price == true
       @price = "Money is no object..."
     else
-      @price = "You're looking for a deal. "
+      @price = "You're looking for a deal, "
     end
 
     if @user.restriction == "kosher"
-      @restriction = "And thanks for letting us know you eat Kosher."
+      @restriction = "and you eat Kosher."
     elsif @user.restriction == "vegetarian"
-      @restriction = "And thanks for letting us know you are a vegetarian."
+      @restriction = "and you're an herbivore."
+     elsif @user.restriction == "halal"
+      @restriction = "and you eat Halal."
     else
       @restriction = ""
     end
@@ -164,7 +166,6 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.js
     end
-    
   end
 
 
