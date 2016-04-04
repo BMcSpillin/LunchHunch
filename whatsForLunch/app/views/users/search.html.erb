@@ -1,11 +1,14 @@
 
 <%= @response.name %><br/>
+
 <img src="<%= @response.image_url %>"></img><br/>
 
 <p><%= @response.review_count%> reviews</p><br/>
 
 <img src="<%= @response.rating_img_url_small %>"></img><br/>
 
-<%= @response.location.display_address %><br/>
-
+<% @response.location.display_address.each do |info| %><br/>
+  <%= content_tag :span, info %>
+<% end %>
+<br/>
 <a href="<%= @response.url %>">Check out this business on <br/>Yelp!</a>
