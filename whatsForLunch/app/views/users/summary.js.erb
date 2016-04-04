@@ -17,3 +17,7 @@ function useGeoData(position){
   }
 
  requestCurrentPosition();
+
+ $(".sweep-to-right").click(function(){
+   $(".question").html('<%= j render("loading") %>')
+})

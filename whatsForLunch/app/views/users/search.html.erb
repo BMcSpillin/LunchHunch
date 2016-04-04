@@ -5,10 +5,16 @@
 
 <p><%= @response.review_count%> reviews</p><br/>
 
-<img src="<%= @response.rating_img_url_small %>"></img><br/>
+<img src="<%= @response.rating_img_url %>"></img><br/>
 
 <% @response.location.display_address.each do |info| %><br/>
   <%= content_tag :span, info %>
 <% end %>
 <br/>
+
+<p> Only <%= '%.2f' % @distance %> miles from you </p><br/>
+
 <a href="<%= @response.url %>">Check out this business on <br/>Yelp!</a>
+<!-- Ting, can you make that "Yelp!" into the logo, cuz you badass?! -->
+
+<%= link_to "Search again", root_path, class: "sweep-to-right" %>
