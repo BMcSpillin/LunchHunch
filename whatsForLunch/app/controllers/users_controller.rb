@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  require 'yelp'
 
   def index
   end
@@ -120,20 +119,62 @@ class UsersController < ApplicationController
       end
     end
 
-
     @user.update(food_arr: food_arr)
-    # render "show"
+
+    # Return results
+
+    if @user.mood == true
+      @mood = "We know you're feeling great today "
+    else
+      @mood = "We know you're having a rough one..."
+    end
+
+    if @user.weather == true
+      @weather = "and it's warm out there. "
+    else
+      @weather = "and it's cold outside. "
+    end
+
+    if @user.healthy == true
+      @healthy = "We think you want something healthy "
+    else
+      @healthy = "You don't strike us as a salad person "
+    end
+
+    if @user.spicy == true
+      @spicy = "and we gotchu: hot, spicy food floats your boat. "
+    else
+      @spicy = "and we gotchu: you're not into spicy stuff. "
+    end
+
+    if @user.price == true
+      @price = "Money is no object..."
+    else
+      @price = "You're looking for a deal. "
+    end
+
+    if @user.restriction == "kosher"
+      @restriction = "And thanks for letting us know you eat Kosher."
+    elsif @user.restriction == "vegetarian"
+      @restriction = "And thanks for letting us know you are a vegetarian."
+     elsif @user.restriction == "halal"
+      @restriction = "And thanks for letting us know you eat Halal."
+    else
+      @restriction = ""
+    end
+
+    respond_to do |format|
+      format.js
+    end
   end
+
 
   def show
     # render action: "search" and return
     @user = User.where(id: session[:user_id]).first
     @user.update(latitude: params[:user][:latitude], longitude: params[:user][:longitude])
 
-    # Here we save the user's location
-    
-    # The code containing the user's summary
-    # Has been transferred to README.rdoc for safe keeping.
+    redirect_to search_path
   end
 
   def search
@@ -144,7 +185,7 @@ class UsersController < ApplicationController
     @parameters = {
       term: terms,
       limit: 1,
-      radius_filter: 1800, #measured in meters. 900m >=~ .5 mile
+      radius_filter: 1800, #measured in meters. 1800m >=~ 1 mile
       is_closed: false,
       category_filter: "restaurants",
       deals_filter: @user.price
