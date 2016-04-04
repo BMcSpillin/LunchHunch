@@ -179,48 +179,27 @@ class UsersController < ApplicationController
     end
   end
 
-  # def show
-  #   @user = User.where(id: session[:user_id]).first
-  #   terms = { term: @user.food_arr.to_s }
-  #   locale = { lang: 'en' }
-  #   coordinates = {latitude: @user.latitude, longitude: @user.longitude}
-  #   parameters = {
-  #     term: terms,
-  #     # terms, #check this out (STRING, OPTIONAL)
-  #     limit: 1,
-  #     radius_filter: 900, #measured in meters. 900m >=~ .5 mile
-  #     category_filter: "food",
-  #     deals_filter: @user.price
-  #     } 
-  #   render json: Yelp.client.search_by_coordinates(coordinates, parameters, locale)
+  def show
+    # render action: "search" and return
+    @user = User.where(id: session[:user_id]).first
+    
+    # The code containing the user's summary
+    # Has been transferred to README.rdoc for safe keeping.
+  end
 
-  # def search
-  #   @terms = @user.food_arr.to_s
-  #   parameters = {
-  #     term: @terms, #check this out (STRING, OPTIONAL)
-  #     limit: 1,
-  #     radius_filter: 900 #measured in meters. 900m >=~ .5 mile
-  #     category_filter: "food",
-  #     cll: @user.latitude,@user.longitude,
-  #     #above seems to require data type "double"... let's see if "float" works.
-  #      }
-  #   render json: Yelp.client.search(‘@user.location’, parameters)
-  # end
+  def search
+    @user = User.where(id: session[:user_id]).first
+    terms = { term: @user.food_arr.to_s }
+    @locale = { lang: 'en' }
+    @coordinates = { latitude: @user.latitude, longitude: @user.longitude }
+    @parameters = {
+      term: terms,
+      limit: 1,
+      radius_filter: 900, #measured in meters. 900m >=~ .5 mile
+      is_closed: false,
+      category_filter: "food",
+      deals_filter: @user.price
+      }
+  end
 
-  # def search
-  #   @user = User.where(id: session[:user_id]).last
-  #   terms = { term: @user.food_arr.to_s }
-  #   locale = { lang: 'en' }
-  #   coordinates = {latitude: @user.latitude, longitude: @user.longitude}
-  #   parameters = {
-  #     term: terms,
-  #     limit: 1,
-  #     is_closed: false,
-  #     radius_filter: 900, #measured in meters. 900m >=~ .5 mile
-  #     category_filter: "food",
-  #     deals_filter: @user.price
-  #     } 
-  #   render json: Yelp.client.search_by_coordinates(coordinates, parameters, locale)
-  # end
-  
 end
