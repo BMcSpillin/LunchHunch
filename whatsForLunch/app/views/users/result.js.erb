@@ -1,1 +1,23 @@
-$(".question").html('<%= j render("result") %>')
+$(".question").html('<%= j render("result") %>');
+
+function requestCurrentPosition(){
+        if (navigator.geolocation)
+        {
+        navigator.geolocation.getCurrentPosition(useGeoData);
+        }
+}
+
+ function useGeoData(position){
+    var longitude = position.coords.longitude;
+    var latitude = position.coords.latitude;
+
+    // $('#user_latitude').val(latitude)
+    // $('#user_longitude').val(longitude)
+    $("input[id=user_latitude]").val(latitude)
+    $("input[id=user_longitude]").val(longitude)
+  }
+
+ // Get user location based on coordinates.
+ // Assign those values to the hidden fields in the JS form
+
+ requestCurrentPosition();

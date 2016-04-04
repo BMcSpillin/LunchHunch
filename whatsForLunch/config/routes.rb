@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post 'choice_for_today' => "users#choice_for_today", as: :choiceForToday 
   # post 'search' => 'users#search', as: :search
   # get 'result' => "users#show", as: :whatsForLunch
+
   resources :users
 
   root 'users#index'

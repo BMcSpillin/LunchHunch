@@ -171,9 +171,15 @@ class UsersController < ApplicationController
 
   def choice_for_today
     @user = User.where(id: session[:user_id]).first
+    @user.update(latitude: params[:user][:latitude], longitude: params[:user][:longitude])
+
+    puts @user.latitude
+    puts @user.longitude
+    puts "Roman Reigns sucks"
     # Here we save the user's location? Or at the beginning?
     # TBD
-
+    # @latitude = params[:latitude]
+    # @longitude = params[:longitude]
     respond_to do |format|
       format.js
     end
