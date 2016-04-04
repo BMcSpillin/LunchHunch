@@ -1,6 +1,11 @@
-<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].name %>
-<img src="#{<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].image_url %>}"></img>
-<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].review_count %>
-<img src="#{<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].rating_img_url_small %>}"></img>
-<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].location.display_address %>
-<a href="#{<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].url %>}">Check out this business on Yelp!</a>
+<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].name %><br/>
+
+<img src="<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].image_url %>"></img><br/>
+
+<p><%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].review_count%> reviews</p><br/>
+
+<img src="<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].rating_img_url_small %>"></img><br/>
+
+<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].location.display_address %><br/>
+
+<a href="<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].url %>">Check out this business on <br/>Yelp!</a>

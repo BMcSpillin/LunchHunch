@@ -16,10 +16,6 @@ class UsersController < ApplicationController
   def third_mood
     @user = User.where(id: session[:user_id]).first
     @user.update(restriction: params[:restriction])
-    # Update current location to the current user
-    @user.update(latitude: 40.708287)
-    @user.update(longitude: -74.00653129999999)
-    @user.update(location: :reverse_geocode)
 
     respond_to do |format|
       format.js
@@ -136,9 +132,9 @@ class UsersController < ApplicationController
     @parameters = {
       term: terms,
       limit: 1,
-      radius_filter: 900, #measured in meters. 900m >=~ .5 mile
+      radius_filter: 1800, #measured in meters. 900m >=~ .5 mile
       is_closed: false,
-      category_filter: "food",
+      category_filter: "restaurants",
       deals_filter: @user.price
       }
   end
