@@ -1,4 +1,3 @@
-<%# redirect_to action: "show" %>
 <%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].name %><br/>
 
 <img src="<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].image_url %>"></img><br/>
