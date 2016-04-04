@@ -202,12 +202,13 @@ class UsersController < ApplicationController
     @coordinates = { latitude: @user.latitude, longitude: @user.longitude }
     @parameters = {
       term: terms,
-      limit: 1,
-      radius_filter: 1800, #measured in meters. 900m >=~ .5 mile
+      limit: 5,
+      radius_filter: 1200, #measured in meters. 900m >=~ .5 mile
       is_closed: false,
       category_filter: "restaurants",
       deals_filter: @user.price
       }
+    @i = rand(0..4)
   end
 
 end

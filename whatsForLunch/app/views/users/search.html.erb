@@ -1,12 +1,12 @@
 <%# redirect_to action: "show" %>
-<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].name %><br/>
+<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i].name %><br/>
 
-<img src="<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].image_url %>"></img><br/>
+<img src="<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i].image_url %>"></img><br/>
 
-<p><%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].review_count%> reviews</p><br/>
+<p><%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i].review_count%> reviews</p><br/>
 
-<img src="<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].rating_img_url_small %>"></img><br/>
+<img src="<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i].rating_img_url_small %>"></img><br/>
 
-<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].location.display_address %><br/>
+<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i].location.display_address %><br/>
 
-<a href="<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].url %>">Check out this business on <br/>Yelp!</a>
+<a href="<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i].url %>">Check out this business on <br/>Yelp!</a>
