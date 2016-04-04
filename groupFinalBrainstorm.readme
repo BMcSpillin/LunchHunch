@@ -115,3 +115,17 @@ happy: boolean
 healthy: boolean
 spicy: boolean
 debt: boolean
+
+BRIDGET NOTES SUNDAY NIGHT
+-We probably want to take the words "mobie app" off the app, since Yelp! had additional display requirements.  Anyway, it is technically a mobile-friendly web application.
+-By the way, have we done any media queries so this actually can be used on a phone?
+-I'm not into this "Lunch Look" thing.  Sounds like fashion.  I think "What's for Lunch" is fine?  What about "Lunch Hunch" if we want to use literary devices
+-Does it have to be red white and blue? :-/
+-I took the word "grub" off because GrubHub basically owns it.
+-The logo should say something like "Powered by" before it, so it doesn't look like the app belongs to Yelp!.
+
+///display requirements that pertain to us///
+Wherever you display information from the API, you’ll also need to display our logo (see below) in a manner that’s obvious to the casual user that the information originates from Yelp.
+Fully attribute your use of our content by linking directly to the applicable Yelp pages.
+You always need to display our aggregate star rating graphics and the number of reviews on which they’re based.
+If you display Yelp Deals or Yelp Certificates, you must attribute each Yelp Deal or Yelp Certificate to Yelp by displaying our logo or our name “Yelp” in text next to each Yelp Deal or Yelp Certificate.
