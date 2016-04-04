@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+  
   def index
   end
 
@@ -188,7 +188,11 @@ class UsersController < ApplicationController
       category_filter: "restaurants",
       deals_filter: @user.price
       }
-    @i = 0
+
+    @i = rand(0..4)
+    
+    @response = Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i]
+
 
   end
 

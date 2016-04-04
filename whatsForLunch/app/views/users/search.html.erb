@@ -1,32 +1,22 @@
 <script>
 	$("#logo").hide();
-
 </script>
 
-<div id="testing">	
-<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i].name %><br/>
-</div>
 
-<div id="testing">
-<img src="<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i].image_url %>"></img><br/>
-</div>
+<%= @response.name %><br/>
 
-<div id="testing">
-<p><%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i].review_count%> reviews</p><br/>
-</div>
+<img src="<%= @response.image_url %>"></img><br/>
 
-<div id="testing">
-<img src="<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i].rating_img_url_small %>"></img><br/>
-<!-- 
-nothing/small/large -->
-</div>
+<p><%= @response.review_count%> reviews</p><br/>
 
-<div id="testing">
-<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i].location.display_address %><br/>
-</div>
+<img src="<%= @response.rating_img_url_small %>"></img><br/>
 
-<div id="testing">
-<a href="<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i].url %>">Check out this business on <br/>Yelp!</a><br />
-</div>
+<% @response.location.display_address.each do |info| %><br/>
+  <%= content_tag :span, info %>
+<% end %>
+<br/>
+<a href="<%= @response.url %>">Check out this business on <br/>Yelp!</a>
 
-<%= link_to "NO, THAT PLACE LOOKS BAD", root_path %><br />
+
+<%= link_to "NO, THAT PLACE LOOKS BAD", search_path %><br />
+<%= link_to "Home", root_path %><br />
