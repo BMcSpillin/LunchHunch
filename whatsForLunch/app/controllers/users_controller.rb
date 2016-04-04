@@ -122,7 +122,7 @@ class UsersController < ApplicationController
 
 
     @user.update(food_arr: food_arr)
-    render "show"
+    # render "show"
   end
 
   def show
