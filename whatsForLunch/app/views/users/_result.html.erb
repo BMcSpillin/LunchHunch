@@ -1,0 +1,19 @@
+<div class="magic openDownLeft">
+	<div id="summary-title">Well, this is your life decision:</div> 
+	<div id="summary">
+		<%= @mood %>
+		<%= @weather %>
+		<%= @healthy %>
+		<%= @spicy %>
+		<%= @price %>
+		<%= @restriction %>
+	</div>
+</div>
+
+<%= form_for @user, :url => :choiceForToday, method: :post, remote: true do |f| %>
+<%= f.hidden_field :latitude %>
+<%= f.hidden_field :longitude%>
+<%= f.submit "NOW LET'S GET SOME GRUB", class: "sweep-to-right" %>
+<br />
+<% end %>
+<!-- This button needs to be styled again. It used to be a link with a sweeping motion, but I needed to change it to a button and it lost the effect in the process -->

@@ -1,3 +1,4 @@
+
 <%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].name %><br/>
 
 <img src="<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].image_url %>"></img><br/>
@@ -9,3 +10,5 @@
 <%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].location.display_address %><br/>
 
 <a href="<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0].url %>">Check out this business on <br/>Yelp!</a>
+
+<!-- <#% redirect_to action: "show" %> -->

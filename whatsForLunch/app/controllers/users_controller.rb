@@ -64,6 +64,14 @@ class UsersController < ApplicationController
     @user.update(price: params[:price])
     food_arr = ["Chinese", "Pizza", "Fast Food", "Italian", "Latin American", "Burgers", "Sandwiches", "Salad", "Korean", "Mexican", "Japanese", "Delis", "Indian", "Sushi Bars", "American", "Caribbean", "Diners", "Seafood", "Thai", "Asian Fusion", "Barbeque", "Mediterranean", "Buffets", "Cheesesteaks", "Chicken Wings", "Comfort Food", "Dumplings", "Fish & Chips", "Food Stands", "Gastropubs", "Hot Dogs", "Soul Food", "Soup", "Tex-Mex", "Waffles"]
 
+    if @user.restriction == "kosher"
+      food_arr.unshift("Kosher")
+    elsif @user.restriction == "vegetarian"
+      food_arr.unshift("Vegetarian")
+    elsif @user.restriction == "halal"
+      food_arr.unshift("Halal")
+    end
+
     if @user.mood == false
       # When Mood is meh(false), return Comfort Food only
       # Remove Non-Comfort Food options
@@ -112,6 +120,7 @@ class UsersController < ApplicationController
       end
     end
 
+
     @user.update(food_arr: food_arr)
     render "show"
   end
@@ -119,6 +128,9 @@ class UsersController < ApplicationController
   def show
     # render action: "search" and return
     @user = User.where(id: session[:user_id]).first
+    @user.update(latitude: params[:user][:latitude], longitude: params[:user][:longitude])
+
+    # Here we save the user's location
     
     # The code containing the user's summary
     # Has been transferred to README.rdoc for safe keeping.
