@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  root 'users#index'
   post 'questions/1-2' => "users#first_location_second_restriction", as: :getLocation
   post 'questions/3' => "users#third_mood", as: :questionMood
   post 'questions/4' => "users#fourth_weather", as: :questionWeather
@@ -11,9 +12,6 @@ Rails.application.routes.draw do
   get 'search' => 'users#search', as: :search
   get 'result' => "users#show", as: :show
 
-  # resources :users
-
-  root 'users#index'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

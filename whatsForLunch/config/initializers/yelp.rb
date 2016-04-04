@@ -1,5 +1,4 @@
 require 'yelp'
-require 'signet'
 
 Yelp.client.configure do |config|
   config.consumer_key = ENV['YELP_CONSUMER_KEY']
@@ -8,4 +7,3 @@ Yelp.client.configure do |config|
   config.token_secret = ENV['YELP_TOKEN_SECRET']
 end
 OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
-# Yelp.client.search('', { term: 'food' })
