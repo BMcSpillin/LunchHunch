@@ -9,14 +9,18 @@
 
 <p><%= @response.review_count%> reviews</p><br/>
 
-<img src="<%= @response.rating_img_url_small %>"></img><br/>
+<img src="<%= @response.rating_img_url %>"></img><br/>
 
 <% @response.location.display_address.each do |info| %><br/>
   <%= content_tag :span, info %>
 <% end %>
 <br/>
-<a href="<%= @response.url %>">Check out this business on <br/>Yelp!</a>
 
+<p> Only <%= '%.2f' % @distance %> miles from you </p><br/>
+
+<a href="<%= @response.url %>">Check out this business on <br/>Yelp!</a>
 
 <%= link_to "NO, THAT PLACE LOOKS BAD", search_path %><br />
 <%= link_to "Home", root_path %><br />
+
+<!-- Ting, can you make that "Yelp!" into the logo, cuz you badass?! -->
