@@ -1,0 +1,18 @@
+<div class="magic openDownLeft">
+	<div id="summary-title">This is what we've got:</div> 
+	<div id="summary">
+		<%= @mood %>
+		<%= @weather %>
+		<%= @healthy %>
+		<%= @spicy %>
+		<%= @price %>
+		<%= @restriction %>
+	</div>
+</div>
+
+<%= form_for @user, :url => :choiceForToday, method: :post do |f| %>
+	<%= f.hidden_field :latitude %>
+	<%= f.hidden_field :longitude%>
+	<%= link_to "LET'S GET YOU FED",choiceForToday_path, class: "sweep-to-right" %>
+	<br />
+<% end %>

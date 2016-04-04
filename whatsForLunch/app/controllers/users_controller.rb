@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   def index
   end
 
-  def first_location_second_restriction
+  def first_restriction
     @new_user = User.create
     session[:user_id] = @new_user.id
 
@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def third_mood
+  def second_mood
     @user = User.where(id: session[:user_id]).first
     @user.update(restriction: params[:restriction])
 
@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def fourth_weather
+  def third_weather
     @user = User.where(id: session[:user_id]).first
     @user.update(mood: params[:mood])
 
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def fifth_spicy
+  def fourth_spicy
     @user = User.where(id: session[:user_id]).first
     @user.update(weather: params[:weather])
 
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def sixth_healthy
+  def fifth_healthy
     @user = User.where(id: session[:user_id]).first
     @user.update(spicy: params[:spicy])
 
@@ -48,17 +48,16 @@ class UsersController < ApplicationController
     end
   end
 
-  def seventh_price
+  def sixth_price
     @user = User.where(id: session[:user_id]).first
     @user.update(healthy: params[:healthy])
-    @user.update(price: params[:price])
 
     respond_to do |format|
       format.js
     end
   end
 
-  def result
+  def summary
     @user = User.where(id: session[:user_id]).first
     @user.update(price: params[:price])
     food_arr = ["Chinese", "Pizza", "Fast Food", "Italian", "Latin American", "Burgers", "Sandwiches", "Salad", "Korean", "Mexican", "Japanese", "Delis", "Indian", "Sushi Bars", "American", "Caribbean", "Diners", "Seafood", "Thai", "Asian Fusion", "Barbeque", "Mediterranean", "Buffets", "Cheesesteaks", "Chicken Wings", "Comfort Food", "Dumplings", "Fish & Chips", "Food Stands", "Gastropubs", "Hot Dogs", "Soul Food", "Soup", "Tex-Mex", "Waffles"]
@@ -166,11 +165,10 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.js
     end
+
   end
 
-
   def show
-    # render action: "search" and return
     @user = User.where(id: session[:user_id]).first
     @user.update(latitude: params[:user][:latitude], longitude: params[:user][:longitude])
 

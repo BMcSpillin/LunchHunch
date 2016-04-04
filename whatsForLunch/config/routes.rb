@@ -1,6 +1,17 @@
 Rails.application.routes.draw do
 
   root 'users#index'
+<<<<<<< HEAD
+  post 'questions/1' => "users#first_restriction", as: :questionRestriction
+  post 'questions/2' => "users#second_mood", as: :questionMood
+  post 'questions/3' => "users#third_weather", as: :questionWeather
+  post 'questions/4' => "users#fourth_spicy", as: :questionSpicy
+  post 'questions/5' => "users#fifth_healthy", as: :questionHealthy
+  post 'questions/6' => "users#sixth_price", as: :questionPrice
+  post 'summary' => "users#summary", as: :summary
+  post 'choice-for-today' => "users#show", as: :choiceForToday 
+  get 'search' => "users#search", as: :search
+=======
   post 'questions/1-2' => "users#first_location_second_restriction", as: :getLocation
   post 'questions/3' => "users#third_mood", as: :questionMood
   post 'questions/4' => "users#fourth_weather", as: :questionWeather
@@ -13,6 +24,7 @@ Rails.application.routes.draw do
 
   
 
+>>>>>>> a4ba1694bab08d01c4b39a34ce9543632cf07f30
 
 
   # The priority is based upon order of creation: first created -> highest priority.

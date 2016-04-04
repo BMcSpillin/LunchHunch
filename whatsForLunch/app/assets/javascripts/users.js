@@ -1,7 +1,6 @@
-
-// $(".locationCall").click(function(){
-// 	console.log("clicked the last button")
-// 	$.ajax({
-// 		url: "<%=pass_location_path %>",
-// 		type: "post" 
-// 	})
+$(document).ready(function(){	
+	$("body").on("click", ".sweep-to-right", function(event){
+		event.preventDefault();
+		$("form")[0].submit();
+	})
+})
