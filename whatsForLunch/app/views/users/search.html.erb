@@ -1,11 +1,32 @@
+<script>
+	$("#logo").hide();
+
+</script>
+
+<div id="testing">	
 <%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i].name %><br/>
+</div>
 
+<div id="testing">
 <img src="<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i].image_url %>"></img><br/>
+</div>
 
+<div id="testing">
 <p><%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i].review_count%> reviews</p><br/>
+</div>
 
+<div id="testing">
 <img src="<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i].rating_img_url_small %>"></img><br/>
+<!-- 
+nothing/small/large -->
+</div>
 
+<div id="testing">
 <%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i].location.display_address %><br/>
+</div>
 
-<a href="<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i].url %>">Check out this business on <br/>Yelp!</a>
+<div id="testing">
+<a href="<%= Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i].url %>">Check out this business on <br/>Yelp!</a><br />
+</div>
+
+<%= link_to "NO, THAT PLACE LOOKS BAD", root_path %><br />

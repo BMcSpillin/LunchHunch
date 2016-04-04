@@ -156,7 +156,7 @@ class UsersController < ApplicationController
       @restriction = "and you eat Kosher."
     elsif @user.restriction == "vegetarian"
       @restriction = "and you're an herbivore."
-     elsif @user.restriction == "halal"
+    elsif @user.restriction == "halal"
       @restriction = "and you eat Halal."
     else
       @restriction = ""
@@ -188,7 +188,8 @@ class UsersController < ApplicationController
       category_filter: "restaurants",
       deals_filter: @user.price
       }
-    @i = rand(0..4)
+    @i = 0
+
   end
 
 end

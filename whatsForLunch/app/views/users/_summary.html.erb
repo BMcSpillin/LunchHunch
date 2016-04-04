@@ -12,7 +12,9 @@
 
 <%= form_for @user, :url => :choiceForToday, method: :post do |f| %>
 	<%= f.hidden_field :latitude %>
-	<%= f.hidden_field :longitude%>
-	<%= link_to "LET'S GET YOU FED",choiceForToday_path, class: "sweep-to-right" %>
+	<%= f.hidden_field :longitude %>
+	<%#= link_to "LET'S GET YOU FED", choiceForToday_path, class: "sweep-to-right" %>
+
+	<%= f.submit "LET'S GET YOU FED", class: "sweep-to-right" %>
 	<br />
 <% end %>
