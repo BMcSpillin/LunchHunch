@@ -28,7 +28,7 @@
 	margin: 0 auto;
 	margin-top: -763px;
 	overflow: hidden;
-	background-color: #FFF8F8;
+	background-color: #D85B3C;
 }
 
 #logo {
@@ -135,9 +135,9 @@ div#body {
 }
 
 @keyframes bgcchange {
-    0%   {background-color: cornflowerblue;}
-    50%  {background-color: coral;}
-    100% {background-color: cornflowerblue;}
+    0%   {background-color: #DC143C;}
+    50%  {background-color: #F4890C;}
+    100% {background-color: #DC143C;}
 }
 
 .answer {
@@ -162,7 +162,7 @@ img {
 #skip:hover {
 	cursor: pointer;
 	transition: all 0.6s ease;
-	background-color: #ccc;
+	background-color: #F4890C;
 	color: black;
 }
 
@@ -172,7 +172,7 @@ img {
 	float: left;
 	padding-top: 45px;
 	font-size: 25px;
-	background-color: #BBCFF2;
+	background-color: #F59F06;
 	list-style-type: none;
 }
 
@@ -186,7 +186,7 @@ img {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#two-choices:hover{
+#two-choices:hover {
 	background-color: cornflowerblue;
 	cursor: pointer;
 	color: white;
@@ -199,7 +199,7 @@ img {
 	float: left;
 	padding-top: 45px;
 	font-size: 25px;
-	background-color: #BBCFF2;
+	background-color: #F59F06;
 	list-style-type: none;
 }
 
@@ -209,7 +209,7 @@ img {
 	float: left;
 	padding-top: 45px;
 	font-size: 25px;
-	background-color: #BBCFF2;
+	background-color: #F59F06;
 	list-style-type: none;
 }
 
