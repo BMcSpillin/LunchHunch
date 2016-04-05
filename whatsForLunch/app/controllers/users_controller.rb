@@ -214,7 +214,6 @@ class UsersController < ApplicationController
       deals_filter: @user.price
       }
 
-
     @response_arr = Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses
     @i = rand(0..(@response_arr.length - 1))
    
