@@ -202,10 +202,9 @@ class UsersController < ApplicationController
       deals_filter: @user.price
       }
 
-
     @response_arr = Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses
     @i = rand(0..(@response_arr.length - 1))
-   
+
     @response = Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i]
     
     if @response.location.coordinate
@@ -213,7 +212,6 @@ class UsersController < ApplicationController
      @distance = @user.distance_to(@restcoords)
     end
 
-   
   end
 
   def search_again
