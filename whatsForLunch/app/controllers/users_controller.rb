@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   def index
   end
 
+# User chooses between options: kosher, halal, vegetarian, or can skip this quesion
   def first_restriction
     @new_user = User.create
     session[:user_id] = @new_user.id
@@ -12,6 +13,7 @@ class UsersController < ApplicationController
     end
   end
 
+#Returns boolean value to adjust table according to assumptions about comfort food
   def second_mood
     @user = User.where(id: session[:user_id]).first
     @user.update(restriction: params[:restriction])
@@ -21,6 +23,8 @@ class UsersController < ApplicationController
     end
   end
 
+#Returns boolean value to adjust table according to assumptions about heavy/light food depending on
+#whether the weather is hot or cold
   def third_weather
     @user = User.where(id: session[:user_id]).first
     @user.update(mood: params[:mood])
@@ -30,6 +34,7 @@ class UsersController < ApplicationController
     end
   end
 
+#Returns boolean value to determine whether to keep or eliminate spicy food categories
   def fourth_spicy
     @user = User.where(id: session[:user_id]).first
     @user.update(weather: params[:weather])
@@ -39,6 +44,7 @@ class UsersController < ApplicationController
     end
   end
 
+#Returns boolean value to determine whether to keep 
   def fifth_healthy
     @user = User.where(id: session[:user_id]).first
     @user.update(spicy: params[:spicy])
@@ -48,6 +54,7 @@ class UsersController < ApplicationController
     end
   end
 
+#Returns boolean value to determine whether or not to 
   def sixth_price
     @user = User.where(id: session[:user_id]).first
     @user.update(healthy: params[:healthy])
@@ -57,6 +64,8 @@ class UsersController < ApplicationController
     end
   end
 
+#Runs logic to eliminate irrelevant food options from the search term array (food_arr) and to give to the user,
+#in plain Enligh, the data we've gathered
   def summary
     @user = User.where(id: session[:user_id]).first
     @user.update(price: params[:price])
@@ -171,6 +180,7 @@ class UsersController < ApplicationController
 
   end
 
+#Summary passes a post through here en route to search_path, which displays a result
   def show
     @user = User.where(id: session[:user_id]).first
     @user.update(latitude: params[:user][:latitude], longitude: params[:user][:longitude])
@@ -178,6 +188,8 @@ class UsersController < ApplicationController
     redirect_to search_path
   end
 
+#Contains functionality to use food_arr and applies it to the Yelp! API
+#Returns results to the search view, which displays them.
   def search
     @user = User.where(id: session[:user_id]).first
     terms =  { terms: @user.food_arr.to_s }
@@ -209,7 +221,6 @@ class UsersController < ApplicationController
      @distance = @user.distance_to(@restcoords)
     end
 
-   
   end
 
 end

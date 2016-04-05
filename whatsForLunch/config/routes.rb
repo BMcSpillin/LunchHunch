@@ -1,15 +1,17 @@
 Rails.application.routes.draw do
 
   root 'users#index'
-
+  # Questions in partials posting to current user's table
   post 'questions/1' => "users#first_restriction", as: :questionRestriction
   post 'questions/2' => "users#second_mood", as: :questionMood
   post 'questions/3' => "users#third_weather", as: :questionWeather
   post 'questions/4' => "users#fourth_spicy", as: :questionSpicy
   post 'questions/5' => "users#fifth_healthy", as: :questionHealthy
   post 'questions/6' => "users#sixth_price", as: :questionPrice
+  # Sum up user details and wrangle location data
   post 'summary' => "users#summary", as: :summary
   post 'choice-for-today' => "users#show", as: :choiceForToday 
+  # Results page, which relies on User data
   get 'search' => "users#search", as: :search
 
   # The priority is based upon order of creation: first created -> highest priority.
