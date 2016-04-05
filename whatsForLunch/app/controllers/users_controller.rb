@@ -112,15 +112,15 @@ class UsersController < ApplicationController
 
     food_arr = food_arr.shuffle
 
-    # if @user.restriction == "kosher"
-    #   # food_arr.unshift("Kosher")
-    #   food_arr = ["Kosher"]
-    # elsif @user.restriction == "vegetarian"
-    #   food_arr.unshift("Vegetarian")
-    # elsif @user.restriction == "halal"
-    #   food_arr = ["Halal"]
-    # end
-    puts food_arr
+    if @user.restriction == "kosher"
+      # food_arr.unshift("Kosher")
+      food_arr = ["Kosher"]
+    elsif @user.restriction == "vegetarian"
+      food_arr.unshift("Vegetarian")
+    elsif @user.restriction == "halal"
+      food_arr = ["Halal"]
+    end
+
     @user.update(food_arr: food_arr)
 
     # Return results
@@ -180,17 +180,29 @@ class UsersController < ApplicationController
 
   def search
     @user = User.where(id: session[:user_id]).first
-    terms =  { terms: @user.food_arr.to_s }
+    @terms =  { terms: @user.food_arr.to_s }
+    puts @user.food_arr.length
+    puts "Thing here"
+    @cat_idx = rand(0..(@user.food_arr.length-1))
+    puts @cat_idx
+
+    if @user.restriction == "kosher" || "vegetarian" || "halal"
+      @cat_idx = 0
+    end
+
+    @food_param = @user.food_arr[@cat_idx].downcase!
+    puts @food_param
+
     @locale = { lang: 'en' }
-    # @offset_var = rand(0..5)
+    @offset_var = rand(0..5)
     @coordinates = { latitude: @user.latitude, longitude: @user.longitude }
     @parameters = {
-      term: terms,
+      term: @terms,
       limit: 10,
-      # offset: @offset_var,
-      radius_filter: 1800, #measured in meters. 1800m >=~ 1.0 mile
+      offset: @offset_var,
+      radius_filter: 1200, #measured in meters. 1200m >=~ 0.75 mile
       is_closed: false,
-      category_filter: "restaurants", 
+      category_filter: @food_param, 
       deals_filter: @user.price
       }
 
