@@ -60,13 +60,13 @@ class UsersController < ApplicationController
   def summary
     @user = User.where(id: session[:user_id]).first
     @user.update(price: params[:price])
-    food_arr = ["Chinese", "Pizza", "Fast Food", "Italian", "Latin American", "Burgers", "Sandwiches", "Salad", "Korean", "Mexican", "Japanese", "Delis", "Indian", "Sushi Bars", "American", "Caribbean", "Diners", "Seafood", "Thai", "Asian Fusion", "Barbeque", "Mediterranean", "Buffets", "Cheesesteaks", "Chicken Wings", "Comfort Food", "Dumplings", "Fish & Chips", "Food Stands", "Gastropubs", "Hot Dogs", "Soul Food", "Soup", "Tex-Mex", "Waffles"]
+    food_arr = ["chinese", "pizza", "italian", "latin", "burgers", "sandwiches", "salad", "korean", "mexican", "japanese", "delis", "indpak", "sushi", "newamerican", "tradamerican", "caribbean", "diners", "seafood", "thai", "asianfusion", "bbq", "mediterranean", "buffets", "cheesesteaks", "chicken_wings", "comfortfood", "fishnchips", "foodstands", "gastropubs", "hotdogs", "soulfood", "soup", "tex-mex", "waffles"]
 
     if @user.mood == false
       # When Mood is meh(false), return Comfort Food only
       # Remove Non-Comfort Food options
 
-      non_comfort_slice = ["Latin American", "Sandwiches", "Korean", "Mexican", "Japanese", "Delis", "Sushi Bars", "Seafood", "Asian Fusion", "Mediterranean", "Salad", "Food Stands", "Hot Dogs", "Tex-Mex"]
+      non_comfort_slice = ["latin", "sandwiches", "korean", "mexican", "japanese", "delis", "sushi", "seafood", "asianfusion", "mediterranean", "salad", "foodstands", "hotdogs", "tex-mex"]
 
       non_comfort_slice.each do |del|
         food_arr.delete_at(food_arr.index(del)) if food_arr.index(del)
@@ -77,7 +77,7 @@ class UsersController < ApplicationController
       # When the user wants healthy food
       # Remove unhealthy food options
 
-      unhealthy_slice = ["Pizza", "Fast Food", "Diners", "Barbeque", "Burgers", "Chinese", "Buffets", "Cheesesteaks", "Chicken Wings", "Comfort Food", "Food Stands", "Gastropubs", "Hot Dogs", "Soul Food", "Tex-Mex", "Waffles", "Fish & Chips"]
+      unhealthy_slice = ["pizza", "diners", "bbq", "burgers", "chinese", "buffets", "cheesesteaks", "chicken_wings", "comfortfood", "foodstands", "gastropubs", "hotdogs", "soulfood", "tex-mex", "waffles", "fishnchips"]
 
       unhealthy_slice.each do |del|
         food_arr.delete_at(food_arr.index(del)) if food_arr.index(del)
@@ -87,13 +87,13 @@ class UsersController < ApplicationController
     if @user.weather == true
       # When weather is warm
       # Remove heavy food
-      hot_slice = ["Diners", "Chinese", "Buffets", "Cheesesteaks", "Chicken Wings", "Soup", "Tex-Mex", "Waffles"]
+      hot_slice = ["diners", "chinese", "buffets", "cheesesteaks", "chicken_wings", "soup", "tex-mex", "waffles"]
 
       hot_slice.each do |del|
         food_arr.delete_at(food_arr.index(del)) if food_arr.index(del)
       end
     else # Otherwise, remove cold food options when weather is cold
-      cold_slice = ["Salad", "Sushi Bars", "Food Stands"]
+      cold_slice = ["salad", "sushi", "foodstands"]
 
       cold_slice.each do |del|
         food_arr.delete_at(food_arr.index(del)) if food_arr.index(del)
@@ -103,7 +103,7 @@ class UsersController < ApplicationController
     if @user.spicy == false
       # When the user doesn't like spicy food
       # Remove spicy food options
-      spice_slice = ["Mexican", "Caribbean", "Thai", "Tex-Mex"]
+      spice_slice = ["mexican", "caribbean", "thai", "tex-mex"]
 
       spice_slice.each do |del|
         food_arr.delete_at(food_arr.index(del)) if food_arr.index(del)
@@ -114,11 +114,11 @@ class UsersController < ApplicationController
 
     if @user.restriction == "kosher"
       # food_arr.unshift("Kosher")
-      food_arr = ["Kosher"]
+      food_arr = ["kosher"]
     elsif @user.restriction == "vegetarian"
-      food_arr.unshift("Vegetarian")
+      food_arr.unshift("vegetarian")
     elsif @user.restriction == "halal"
-      food_arr = ["Halal"]
+      food_arr = ["halal"]
     end
 
     @user.update(food_arr: food_arr)
@@ -181,17 +181,13 @@ class UsersController < ApplicationController
   def search
     @user = User.where(id: session[:user_id]).first
     @terms =  { terms: @user.food_arr.to_s }
-    puts @user.food_arr.length
-    puts "Thing here"
     @cat_idx = rand(0..(@user.food_arr.length-1))
-    puts @cat_idx
 
     if @user.restriction == "kosher" || "vegetarian" || "halal"
       @cat_idx = 0
     end
 
-    @food_param = @user.food_arr[@cat_idx].downcase!
-    puts @food_param
+    @food_param = @user.food_arr[@cat_idx]
 
     @locale = { lang: 'en' }
     @offset_var = rand(0..5)
@@ -202,7 +198,7 @@ class UsersController < ApplicationController
       offset: @offset_var,
       radius_filter: 1200, #measured in meters. 1200m >=~ 0.75 mile
       is_closed: false,
-      category_filter: @food_param, 
+      category_filter: @food_param,
       deals_filter: @user.price
       }
 
@@ -213,10 +209,6 @@ class UsersController < ApplicationController
     @response = Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i]
     
     if @response.location.coordinate
-    #   puts "response nil. Reloading page"
-    #   redirect_to search_path
-    # else
-  
      @restcoords = [@response.location.coordinate.latitude, @response.location.coordinate.longitude]
      @distance = @user.distance_to(@restcoords)
     end
