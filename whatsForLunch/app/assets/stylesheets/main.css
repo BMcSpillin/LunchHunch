@@ -99,6 +99,15 @@ div#header {
   height: 50px;
 }
 
+#home-btnz {
+  display: none;
+  padding-top: 13px;
+}
+
+#home-btnz:hover {
+  background-color: crimson;
+}
+
 div#body {
   height: 300px;
 }
@@ -274,12 +283,26 @@ img {
   }
 }
 
+input[type="submit"]{
+   font-size: 16px;
+   color: dimgray;
+   background: none;
+   border: 0;
+   padding: 16px 40px;
+   -webkit-appearance: button;
+   -webkit-user-select: none;
+      -moz-user-select: none;
+       -ms-user-select: none;
+}
+
+input[type="submit"]:hover{
+	color: white;
+	cursor: pointer;
+	background-color: transparent;
+}
+
 .sweep-to-right {
   text-decoration: none;
-  font-size: 16px;
-  padding-left: 30px;
-  padding-right: 30px;
-  color: dimgray;
   background-color: gainsboro;
   position: relative;
   display: inline-block;
@@ -308,4 +331,89 @@ img {
 .sweep-to-right:hover:before {
 	transform: scaleX(1);
 	color: white;
+}
+
+#restaurant-name {
+	font-size: 25px;
+	font-weight: bold;
+	line-height: 48px;
+}
+
+#result-body-container {
+	height: 200px;
+	width: 80%;
+	margin: 20px auto;
+	border-top: 3px solid black;
+	border-bottom: 3px solid black;
+}
+
+#result-body-left {
+	float: left;
+	width: 50%;
+	height: 200px;
+	text-align: center;
+}
+
+#result-body-right {
+	text-align: right;
+	height: 200px;
+	padding: 8px 18px;
+}
+
+#rating {
+	vertical-align: text-bottom;
+}
+
+#restaurant-image {
+	border-radius: 10%;
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#address {
+	font-size: 16px;
+	line-height: 20px;
+}
+
+#yelp-logo-1 {
+	vertical-align: text-top;
+}
+
+#check-this-out-on-yelp {
+	text-decoration: none;
+}
+
+#check-this-out-on-yelp:hover {
+	padding: 5px 15px;
+	font-size: 16px;
+	transition: all 0.3s ease-out;
+}
+
+#search-again {
+	text-decoration: none;
+	font-size: 22px;
+	color: black;
+}
+
+#search-again:hover {
+	color: lightseagreen;
+	background-color: transparent; 
+	transition: all 0.3s ease-out;
+}
+
+#choice-for-today {
+  animation-name: colorchange;
+  animation-duration: 30s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes colorchange {
+    0%   {color: crimson;}
+    50%  {color: cornflowerblue;}
+    100% {color: crimson;}
+}
+
+#loading {
+	margin-top: 180px;
 }

@@ -1,26 +1,38 @@
 <script>
 	$("#logo").hide();
+	$('#header').css({'background-color': 'crimson',
+				'transition': 'all 0.6s ease-in-out'});
+	$('#home-btnz').show();
 </script>
 
+<br />
 
-<%= @response.name %><br/>
+<div id="restaurant-name">
+	DUDE, WHY DON'T YOU GO TO <br />
+	<span id="choice-for-today" style="color: crimson; font-size: 35px; text-decoration: underline"><%= @response.name %></span><br />
+</div>
+<div id="result-body-container">
+	<div id="result-body-left">
+		<img id="restaurant-image" src="<%= @response.image_url %>">
+	</div>
+	<div id="result-body-right">
+		<img id="rating" src="<%= @response.rating_img_url %>"> <%= @response.review_count %> reviews<br/>
+		<div id="address">
+			<% @response.location.display_address.each do |info| %><br/>
+			  <%= content_tag :span, info %>
+			<% end %>
+			<br/>
+		</div>
+		<br />
+		<img src="/assets/telephone.svg" width="18"> <%= @response.display_phone %><br/>
+	<% if @restcoords %>
+		<img src="/assets/gps.svg" width="18"> Only <%= '%.2f' % @distance %> miles from you<br/>
+	<% else %>
+		<img src="/assets/gps.svg" width="18"> Just around the corner<br/>
+	<% end %>
+	</div>
+</div>
 
-<img src="<%= @response.image_url %>"></img><br/>
+<a id="check-this-out-on-yelp" href="<%= @response.url %>">Check out this business on <img id="yelp-logo-1" src="/assets/yelp_logo.png" width="40"></a><br /><br />
 
-<p><%= @response.review_count%> reviews</p><br/>
-
-<img src="<%= @response.rating_img_url %>"></img><br/>
-
-<% @response.location.display_address.each do |info| %><br/>
-  <%= content_tag :span, info %>
-<% end %>
-<br/>
-
-<p> Only <%= '%.2f' % @distance %> miles from you </p><br/>
-
-<a href="<%= @response.url %>">Check out this business on <br/>Yelp!</a>
-
-<%= link_to "NO, THAT PLACE LOOKS BAD", search_path %><br />
-<%= link_to "Home", root_path %><br />
-
-<!-- Ting, can you make that "Yelp!" into the logo, cuz you badass?! -->
+<%= link_to "NO, THAT PLACE LOOKS BAD", search_path, id: "search-again" %><br /><br />

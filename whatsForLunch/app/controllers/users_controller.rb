@@ -62,14 +62,6 @@ class UsersController < ApplicationController
     @user.update(price: params[:price])
     food_arr = ["Chinese", "Pizza", "Fast Food", "Italian", "Latin American", "Burgers", "Sandwiches", "Salad", "Korean", "Mexican", "Japanese", "Delis", "Indian", "Sushi Bars", "American", "Caribbean", "Diners", "Seafood", "Thai", "Asian Fusion", "Barbeque", "Mediterranean", "Buffets", "Cheesesteaks", "Chicken Wings", "Comfort Food", "Dumplings", "Fish & Chips", "Food Stands", "Gastropubs", "Hot Dogs", "Soul Food", "Soup", "Tex-Mex", "Waffles"]
 
-    if @user.restriction == "kosher"
-      food_arr.unshift("Kosher")
-    elsif @user.restriction == "vegetarian"
-      food_arr.unshift("Vegetarian")
-    elsif @user.restriction == "halal"
-      food_arr.unshift("Halal")
-    end
-
     if @user.mood == false
       # When Mood is meh(false), return Comfort Food only
       # Remove Non-Comfort Food options
@@ -118,6 +110,17 @@ class UsersController < ApplicationController
       end
     end
 
+    food_arr = food_arr.shuffle
+
+    # if @user.restriction == "kosher"
+    #   # food_arr.unshift("Kosher")
+    #   food_arr = ["Kosher"]
+    # elsif @user.restriction == "vegetarian"
+    #   food_arr.unshift("Vegetarian")
+    # elsif @user.restriction == "halal"
+    #   food_arr = ["Halal"]
+    # end
+    puts food_arr
     @user.update(food_arr: food_arr)
 
     # Return results
@@ -177,26 +180,36 @@ class UsersController < ApplicationController
 
   def search
     @user = User.where(id: session[:user_id]).first
-    terms = { term: @user.food_arr.to_s }
+    terms =  { terms: @user.food_arr.to_s }
     @locale = { lang: 'en' }
+    # @offset_var = rand(0..5)
     @coordinates = { latitude: @user.latitude, longitude: @user.longitude }
     @parameters = {
       term: terms,
-      limit: 5,
-      radius_filter: 1200, #measured in meters. 900m >=~ .5 mile
+      limit: 10,
+      # offset: @offset_var,
+      radius_filter: 1800, #measured in meters. 1800m >=~ 1.0 mile
       is_closed: false,
-      category_filter: "restaurants",
+      category_filter: "restaurants", 
       deals_filter: @user.price
       }
 
+
     @response_arr = Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses
     @i = rand(0..(@response_arr.length - 1))
-    
+   
     @response = Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[@i]
-
-    @restcoords = [@response.location.coordinate.latitude, @response.location.coordinate.longitude]
-    @distance = @user.distance_to(@restcoords)
     
+    if @response.location.coordinate
+    #   puts "response nil. Reloading page"
+    #   redirect_to search_path
+    # else
+  
+     @restcoords = [@response.location.coordinate.latitude, @response.location.coordinate.longitude]
+     @distance = @user.distance_to(@restcoords)
+    end
+
+   
   end
 
 end
