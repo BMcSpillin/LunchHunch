@@ -216,4 +216,8 @@ class UsersController < ApplicationController
    
   end
 
+  def search_again
+    redirect_to search_path
+    #This path exists to reroute to search to reset cat_idx and further randomize results
+  end
 end

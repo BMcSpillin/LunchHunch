@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post 'summary' => "users#summary", as: :summary
   post 'choice-for-today' => "users#show", as: :choiceForToday 
   get 'search' => "users#search", as: :search
+  get 'search_again' => "users#search_again", as: :search_again
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
