@@ -193,15 +193,20 @@ class UsersController < ApplicationController
   def search
     @user = User.where(id: session[:user_id]).first
     @terms =  { terms: @user.food_arr.to_s }
-    @cat_idx = rand(0..(@user.food_arr.length-1))
 
-    if @user.restriction == "kosher" || "vegetarian" || "halal"
-      @cat_idx = 0
-    end
+     if @user.restriction == "kosher"
+       @cat_idx = 0
+     elsif @user.restriction == "vegetarian"
+       @cat_idx = 0
+     elsif @user.restriction == "halal"
+       @cat_idx = 0
+     else
+       @cat_idx = (rand(0..(@user.food_arr.length-1))).round
+     end
 
     @food_param = @user.food_arr[@cat_idx]
     @locale = { lang: 'en' }
-    @offset_var = rand(0..10)
+    @offset_var = rand(0..10).round
     @coordinates = { latitude: @user.latitude, longitude: @user.longitude }
     @parameters = {
       term: @terms,
@@ -213,13 +218,15 @@ class UsersController < ApplicationController
       # deals_filter: @user.price
       # Deals filter being true often returned too few results, breaking the app.
     }
-
+    
     @response = Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0]
     # Response_arr changed to @response since we are only returning one result now
     # @i = rand(0..(@response_arr.length - 1))
     # @response = @response_arr[@i]
-    
-    if @response.location.coordinate
+
+    if @response.nil? || @response.location.nil?
+     redirect_to search_again_path
+      else
      @restcoords = [@response.location.coordinate.latitude, @response.location.coordinate.longitude]
      @distance = @user.distance_to(@restcoords)
     end
