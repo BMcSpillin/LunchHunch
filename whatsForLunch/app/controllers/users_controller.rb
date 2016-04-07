@@ -158,7 +158,7 @@ class UsersController < ApplicationController
       @spicy = "and we gotchu: you're not into hot stuff, hot stuff. "
     end
 
-    if @user.price == true
+    if @user.price == false
       @price = "Money is no object..."
     else
       @price = "You're looking for a deal, "
@@ -201,23 +201,23 @@ class UsersController < ApplicationController
 
     @food_param = @user.food_arr[@cat_idx]
     @locale = { lang: 'en' }
-    @offset_var = rand(0..5)
+    @offset_var = rand(0..10)
     @coordinates = { latitude: @user.latitude, longitude: @user.longitude }
     @parameters = {
       term: @terms,
-      limit: 10,
+      limit: 1,
       offset: @offset_var,
       radius_filter: 1200, #measured in meters. 1200m >=~ 0.75 mile
       is_closed: false,
-      category_filter: @food_param,
-      deals_filter: @user.price
-      }
+      category_filter: @food_param
+      # deals_filter: @user.price
+      # Deals filter being true often returned too few results, breaking the app.
+    }
 
-    @response_arr = Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses
-
-    @i = rand(0..(@response_arr.length - 1))
-
-    @response = @response_arr[@i]
+    @response = Yelp.client.search_by_coordinates(@coordinates, @parameters, @locale).businesses[0]
+    # Response_arr changed to @response since we are only returning one result now
+    # @i = rand(0..(@response_arr.length - 1))
+    # @response = @response_arr[@i]
     
     if @response.location.coordinate
      @restcoords = [@response.location.coordinate.latitude, @response.location.coordinate.longitude]
