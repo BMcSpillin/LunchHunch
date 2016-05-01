@@ -8,7 +8,7 @@ function requestCurrentPosition(){
 }
 
 function useGeoData(position){
-    var longitude = position.coords.longitude;
+    longitude = position.coords.longitude;
     var latitude = position.coords.latitude;
     console.log(longitude)
     console.log(latitude)
@@ -18,6 +18,13 @@ function useGeoData(position){
 
  requestCurrentPosition();
 
+
  $(".sweep-to-right").click(function(){
+
+   if ($("input[id=user_longitude]").val() == ''){
+    $('#summary').html("I know you're hungry, but please wait while we gather your location.")
+    return false
+   } else{
    $(".question").html('<%= j render("loading") %>')
+    }
 })

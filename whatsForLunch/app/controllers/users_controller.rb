@@ -183,6 +183,7 @@ class UsersController < ApplicationController
 # Summary passes a post through here en route to search_path, which displays a result
   def show
     @user = User.where(id: session[:user_id]).first
+
     @user.update(latitude: params[:user][:latitude], longitude: params[:user][:longitude])
 
     redirect_to search_path
@@ -192,6 +193,7 @@ class UsersController < ApplicationController
 # Returns results to the search view, which displays them.
   def search
     @user = User.where(id: session[:user_id]).first
+    puts @user.latitude
     @terms =  { terms: @user.food_arr.to_s }
 
      if @user.restriction == "kosher"
@@ -208,11 +210,12 @@ class UsersController < ApplicationController
     @locale = { lang: 'en' }
     @offset_var = rand(0..10).round
     @coordinates = { latitude: @user.latitude, longitude: @user.longitude }
+ 
     @parameters = {
       term: @terms,
       limit: 1,
       offset: @offset_var,
-      radius_filter: 1200, #measured in meters. 1200m >=~ 0.75 mile
+      radius_filter: 12000, #measured in meters. 1200m >=~ 0.75 mile
       is_closed: false,
       category_filter: @food_param
       # deals_filter: @user.price

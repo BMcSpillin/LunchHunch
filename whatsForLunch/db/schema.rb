@@ -24,7 +24,6 @@ ActiveRecord::Schema.define(version: 20160401193206) do
     t.datetime "updated_at",  null: false
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "ip_address"
     t.text     "food_arr"
     t.string   "restriction"
   end
